@@ -1,24 +1,22 @@
-import logo from './logo.svg';
+//----------→ File Imports
 import './App.css';
 
+  
+//----------→ Component Imports
+import Navbar from './components/Navbar';
+import TopNavbar from './components/TopNavBar';
+import Bookcollection from './components/Bookcollection'; //displays all books
+
+//----------→ App Space
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <>
+    <TopNavbar />
+      <div className = "row2">
+        <Navbar />
+        <Bookcollection />
+      </div>
+  </>
   );
 }
 
