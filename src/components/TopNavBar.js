@@ -1,6 +1,6 @@
 var topNavBarStyle = {
     div:{
-        background: "green",
+        background: "rgba(0,100,0,0.5)",
         color: "white",
         width: "100vh%",
         height: "10%",

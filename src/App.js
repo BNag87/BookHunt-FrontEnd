@@ -1,5 +1,6 @@
 //----------→ File Imports
 import './App.css';
+
 //----------→ Framework Imports
 //----→ react-router allows navigation between pages
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -8,30 +9,30 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar'; //navbar for side of page with links
 import TopNavbar from './components/TopNavBar'; //navbar for the top of the page
 import Homepage from './components/Homepage'; //homepage component
-import AboutUs from './components/About'; //
+import AboutUs from './components/About'; //about page component
 
 //----------→ App Space
 function App() {
   return (
   
   <Router>
-      <TopNavbar />
-    <Switch>
-    
-      <div className = "row2">
-        <Navbar />
+    <TopNavbar />
+      <Switch>
+      
+        <div className = "row2">
+          <Navbar />
 
-      <Route exact path = "/components/Homepage">
-        <Homepage />
-      </Route>
+          <Route exact path = "/components/Homepage">
+            <Homepage />
+          </Route>
 
-      <Route exact path = "/components/About">
-        <AboutUs />
-      </Route>
+          <Route exact path = "/components/About">
+            <AboutUs />
+          </Route>
 
-      </div>
+        </div>
 
-    </Switch>
+      </Switch>
   </Router>
   
   );

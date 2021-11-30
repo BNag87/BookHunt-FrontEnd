@@ -22,7 +22,7 @@ var homepageWindowStyle = {
 
 }
 
-const Homepage  = () => {
+const Homepage = () => {
 
     return(
         <div style={homepageWindowStyle.div}>
