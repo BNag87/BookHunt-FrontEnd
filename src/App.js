@@ -15,10 +15,13 @@ import { fetchAPIData } from './utils';
 //----------→ App Space
 function App() {
   const [apiData, setApiData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchOnLoad() {
+      setIsLoading(true);
       await fetchAPIData(setApiData);
+      setIsLoading(false);
     }
 
     return fetchOnLoad();
@@ -32,7 +35,7 @@ function App() {
           <Navbar />
 
           <Route exact path="/components/Homepage">
-            <Homepage apiData={apiData} />
+            <Homepage apiData={apiData} isLoading={isLoading} />
           </Route>
 
           <Route exact path="/components/About">

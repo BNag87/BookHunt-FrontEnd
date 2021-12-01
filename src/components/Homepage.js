@@ -3,6 +3,7 @@ import background from '../images/pageBG2.png';
 
 //----------→ Component Imports
 import CardDeck from './CardDeck';
+import LoadingSpinner from './LoadingSpinner';
 
 var homepageWindowStyle = {
   div: {
@@ -21,9 +22,10 @@ var homepageWindowStyle = {
   },
 };
 
-const Homepage = ({ apiData }) => {
+const Homepage = ({ apiData, isLoading }) => {
   return (
     <div style={homepageWindowStyle.div}>
+      <LoadingSpinner isLoading={isLoading} />
       <CardDeck data={apiData} />
 
       <p>
