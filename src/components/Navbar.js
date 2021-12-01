@@ -7,7 +7,7 @@ var navBarStyle = {
         flexDirection: "column",
         alignItems: "center",
         textAlign: "center",
-        background: "red",
+        background: "rgba(0,100,0,0.5)",
         color: "white",
         width: "15%",
         height: "100vh",
@@ -64,7 +64,7 @@ const Navbar  = () => {
         <Link to="/components/About">
             <div className = "customButton" style = {customButtonStyle.div}><h3 style = {customButtonStyle.h3}>About Us</h3></div> 
         </Link>
-        
+
         </div>
 
     )
