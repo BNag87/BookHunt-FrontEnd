@@ -22,11 +22,11 @@ var homepageWindowStyle = {
   },
 };
 
-const Homepage = ({ apiData, isLoading }) => {
+const Homepage = ({ apiData, isLoading, handleSetFav }) => {
   return (
     <div style={homepageWindowStyle.div}>
       <LoadingSpinner isLoading={isLoading} />
-      <CardDeck data={apiData} />
+      <CardDeck data={apiData} handleSetFav={handleSetFav} />
 
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
