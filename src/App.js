@@ -14,7 +14,6 @@ import Faq from './components/FAQ'; //faq page component
 
 import { useEffect, useState } from 'react';
 import { fetchAPIData, fetchFavourite } from './utils';
-import Faq from './components/FAQ';
 
 //----------→ App Space
 function App() {
@@ -62,7 +61,7 @@ function App() {
             <Faq />
           </Route>
 
-          <Route exact path = "/components/About">
+          <Route exact path="/components/About">
             <AboutUs />
           </Route>
         </div>
