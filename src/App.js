@@ -13,12 +13,14 @@ import AboutUs from './components/About'; //about page component
 import Faq from './components/FAQ'; //faq page component
 
 import { useEffect, useState } from 'react';
-import { fetchAPIData } from './utils';
+import { fetchAPIData, fetchFavourite } from './utils';
+import Faq from './components/FAQ';
 
 //----------→ App Space
 function App() {
   const [apiData, setApiData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     async function fetchOnLoad() {
@@ -27,8 +29,19 @@ function App() {
       setIsLoading(false);
     }
 
+    // temp for testing
+    setUser(() => {
+      return {
+        token:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWE2NDU4YThmMDFiNDM5NzQwNGIwZWUiLCJpYXQiOjE2MzgyODY3MzB9.TeaawgdxpR-NUJd5AtvQb4v4x80GkXHXv7TfKxP67Lk',
+      };
+    });
     return fetchOnLoad();
   }, []);
+
+  const handleSetFav = async (id, isFav) => {
+    await fetchFavourite(id, isFav, user);
+  };
 
   return (
     <Router>
@@ -38,50 +51,23 @@ function App() {
           <Navbar />
 
           <Route exact path="/components/Homepage">
-            <Homepage apiData={apiData} isLoading={isLoading} />
+            <Homepage
+              apiData={apiData}
+              isLoading={isLoading}
+              handleSetFav={handleSetFav}
+            />
           </Route>
 
-          <Route exact path="/components/About">
-            <AboutUs />
-          </Route>
-        </div>
-      </Switch>
-    </Router>
-
-
-
-
-//----------→ App Space
-function App() {
-  return (
-  
-  <Router>
-    <TopNavbar />
-      <Switch>
-      
-        <div className = "row2">
-          <Navbar />
-
-          <Route exact path = "/components/Homepage">
-            <Homepage />
-          </Route>
-
-          <Route exact path = "/components/FAQ">
+          <Route exact path="/components/FAQ">
             <Faq />
           </Route>
 
           <Route exact path = "/components/About">
             <AboutUs />
           </Route>
-
-
-
         </div>
-
       </Switch>
-  </Router>
-  
-
+    </Router>
   );
 }
 

@@ -17,3 +17,28 @@ export const fetchAPIData = async setApiData => {
     console.error('💥 💥', err);
   }
 };
+
+export const fetchFavourite = async (id, isFav, user) => {
+  try {
+    let route;
+    if (isFav) route = 'favourite';
+    else route = 'unfavourite';
+
+    const response = await fetch(`http://localhost:5000/${route}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify({ id: id }),
+    });
+
+    if (!response.ok) throw new Error('Error updating favourite');
+
+    const responseObj = await response.json();
+
+    console.log(responseObj);
+  } catch (err) {
+    console.error('💥 💥', err);
+  }
+};
