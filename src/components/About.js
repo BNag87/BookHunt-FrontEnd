@@ -7,6 +7,7 @@ import companyImg from "../images/CompanyLogo.png";
 //css style for a container div that contains text
 var aboutUsStyle = {
     div:{
+
         border: "solid black 2px",
         background: "rgba(90,90,90,0.5)",
         margin: "5px",
@@ -14,13 +15,15 @@ var aboutUsStyle = {
      },
   }
  
-//css style for a text box containing about us text
+//css style for a text box containing faq text
  var textBoxStyle = {
     div:{
-        border: "solid black 1px",
+        border: "outset black 1px",
+        borderRadius: "5px",
         background: "rgba(150,150,150,1)",
-        margin: "5px",
-        padding: "30px",
+        boxShadow: "3px 3px 5px rgb(100,100,100)",
+        margin: "10px",
+        padding: "10px",
         color: "white",
         textAlign: "center",
         fontSize: "large",
@@ -38,6 +41,7 @@ var aboutUsStyle = {
         backgroundImage: `url(${companyImg})`,
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        backgroundSize: "contain",
         textAlign: "center",
         margin: "5px",
         padding: "5px",
@@ -51,19 +55,31 @@ var aboutUsStyle = {
  
      return(
     <>
-    {/* <div style={aboutUsStyle.div}> */}
-        <div style = {CompanyImage.div}>
-        <h1>Book Hunt</h1>
-        </div>
-    {/* </div> */}
+        <div style = {CompanyImage.div}/>
 
         <div style={aboutUsStyle.div}>
             <div style = {textBoxStyle.div}>
                 <h3 style = {textBoxStyle.h3}>Want something to stimulate the brain? So do we!</h3>
                 <p>Here at Book Hunt, we want to help you shrug off any boredom and dive in to a new story that will ignite your imagination.</p>
-                <p>We are constanlty looking for new books and have made a collection you can browse.</p>
+                <p>We are constantly looking for new books and have made a collection you can browse.</p>
                 <p>You can search by genres, review scores or even the year of a books release to help narrow your search!</p>
                 <p>We have been based remotely around Manchester for six thousand years. We also have a major influence in Parliament.</p>
+            </div>
+            
+            <div style = {textBoxStyle.div}>
+            <h3 style = {textBoxStyle.h3}>Book Hunts History</h3>
+                <p>At the dawn of time, we fabricated Excalibur from toothpicks.</p>
+                <p>During the Crimean war, we invented the internet.</p>
+                <p>Our team met Napoleon Bonaparte and played hopscotch with him!</p>
+                <p>Her Majesty, the Queen, once gave us a like on a Facebook post we made</p>
+            </div>
+
+            <div style = {textBoxStyle.div}>
+            <h3 style = {textBoxStyle.h3}>The future of Book Hunt</h3>
+                <p>We aim to colonise the sun with a few months.</p>
+                <p>After we have achieved this, we will be constructing a paper mache Eifel Tower, then we will burn it.</p>
+                <p>Once the magnetic poles have reversed, we will go sunbathing.</p>
+                <p>Finally, once we have a nice tan, we will roast parsnips underwater.</p>
             </div>
         </div>
     </>
