@@ -1,4 +1,4 @@
-import { ExpandMore } from '@mui/icons-material';
+//----------→ Framework Imports
 import {
   Accordion,
   AccordionDetails,
@@ -6,6 +6,7 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
+import { ExpandMore } from '@mui/icons-material';
 
 const BookDescription = ({ description }) => {
   return (

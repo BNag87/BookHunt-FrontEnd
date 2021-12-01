@@ -1,9 +1,27 @@
-import { Card, CardContent, CardMedia, Paper, Typography } from '@mui/material';
+//----------→ Framework Imports
+import { useState } from 'react';
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  IconButton,
+  Paper,
+  Rating,
+  Typography,
+} from '@mui/material';
+import { Favorite, FavoriteBorder } from '@mui/icons-material';
+
+//----------→ Component Imports
 import BookDescription from './BookDescription';
 
 const BookCard = ({ title, author, imgUrl, review, description }) => {
+  const [isFavourite, setIsFavourite] = useState(false);
+
   // Remove author/summary from title
   const formattedTitle = title.split(':')[0];
+
+  // Get the rating as a number
+  const bookRating = +review.split(' ')[0];
 
   return (
     <Card
@@ -34,17 +52,44 @@ const BookCard = ({ title, author, imgUrl, review, description }) => {
             }}
           />
         </Paper>
-        <Typography variant="h3" sx={{ mb: 3, mt: 3, fontSize: '1.5rem' }}>
+        <Typography variant="h3" sx={{ mb: 2.5, mt: 3, fontSize: '1.5rem' }}>
           {formattedTitle}
         </Typography>
-        <Typography variant="h4" sx={{ mb: 1.5, mt: 1.5, fontSize: '1.3rem' }}>
+        <Typography variant="h4" sx={{ mb: 2.5, fontSize: '1.3rem' }}>
           by {author}
         </Typography>
-        <Typography variant="body" sx={{ fontFamily: 'inherit' }}>
-          {review}
-        </Typography>
+        <Paper
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            p: 1,
+            mb: 2,
+            fontSize: '1.7rem',
+          }}
+          elevation={2}
+        >
+          <Rating
+            name={`${title} rating`}
+            value={bookRating}
+            precision={0.1}
+            readOnly
+            size="large"
+            sx={{ mr: 1.5 }}
+          />
+          <IconButton
+            aria-label="add book to favourites"
+            onClick={() => setIsFavourite(prev => !prev)}
+            sx={{ fontSize: 'inherit' }}
+          >
+            {isFavourite ? (
+              <Favorite sx={{ color: 'red' }} fontSize="inherit" />
+            ) : (
+              <FavoriteBorder fontSize="inherit" />
+            )}
+          </IconButton>
+        </Paper>
         <BookDescription description={description} />
-        {/* <CardDetails avgRating={avgRating} genres={genres} /> */}
       </CardContent>
     </Card>
   );
