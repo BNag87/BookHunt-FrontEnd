@@ -7,6 +7,7 @@ import companyImg from "../images/CompanyLogo.png";
 //css style for a container div that contains text
 var aboutUsStyle = {
     div:{
+
         border: "solid black 2px",
         background: "rgba(90,90,90,0.5)",
         margin: "5px",
@@ -14,14 +15,15 @@ var aboutUsStyle = {
      },
   }
  
-//css style for a text box containing about us text
+//css style for a text box containing faq text
  var textBoxStyle = {
     div:{
-        border: "solid black 1px",
+        border: "outset black 1px",
         borderRadius: "5px",
         background: "rgba(150,150,150,1)",
+        boxShadow: "3px 3px 5px rgb(100,100,100)",
         margin: "10px",
-        padding: "30px",
+        padding: "10px",
         color: "white",
         textAlign: "center",
         fontSize: "large",
@@ -39,6 +41,7 @@ var aboutUsStyle = {
         backgroundImage: `url(${companyImg})`,
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        backgroundSize: "contain",
         textAlign: "center",
         margin: "5px",
         padding: "5px",
@@ -74,11 +77,13 @@ var aboutUsStyle = {
                 <p>Her Majesty, the Queen, once gave us a like on a Facebook post we made</p>
             </div>
 
+            <div style = {textBoxStyle.div}>
             <h3 style = {textBoxStyle.h3}>The future of Book Hunt</h3>
                 <p>We aim to colonise the sun with a few months.</p>
                 <p>After we have achieved this, we will be constructing a paper mache Eifel Tower, then we will burn it.</p>
                 <p>Once the magnetic poles have reversed, we will go sunbathing.</p>
                 <p>Finally, once we have a nice tan, we will roast parsnips underwater.</p>
+            </div>
         </div>
     </>
     )

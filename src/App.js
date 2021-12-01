@@ -10,6 +10,7 @@ import Navbar from './components/Navbar'; //navbar for side of page with links
 import TopNavbar from './components/TopNavBar'; //navbar for the top of the page
 import Homepage from './components/Homepage'; //homepage component
 import AboutUs from './components/About'; //about page component
+import Faq from './components/FAQ'; //faq page component
 
 //----------→ App Space
 function App() {
@@ -26,9 +27,15 @@ function App() {
             <Homepage />
           </Route>
 
+          <Route exact path = "/components/FAQ">
+            <Faq />
+          </Route>
+
           <Route exact path = "/components/About">
             <AboutUs />
           </Route>
+
+
 
         </div>
 
