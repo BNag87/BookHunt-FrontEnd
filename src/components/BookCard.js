@@ -1,3 +1,5 @@
+//----------→ Framework Imports
+import { useState } from 'react';
 import {
   Card,
   CardContent,
@@ -8,8 +10,9 @@ import {
   Typography,
 } from '@mui/material';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
+
+//----------→ Component Imports
 import BookDescription from './BookDescription';
-import { useState } from 'react';
 
 const BookCard = ({ title, author, imgUrl, review, description }) => {
   const [isFavourite, setIsFavourite] = useState(false);
