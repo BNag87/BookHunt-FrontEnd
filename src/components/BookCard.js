@@ -34,7 +34,8 @@ const BookCard = ({
   const handleFavClick = e => {
     const id = e.target.closest('.favourite-icon').id;
 
-    // pass the opposite of isFavourite so the handler doesn't need to wait for the setState to run to received the new value
+    // pass the opposite of isFavourite so the handler doesn't need
+    // to wait for the setState to run to received the new value
     handleSetFav(id, !isFavourite);
     setIsFavourite(prev => !prev);
   };
