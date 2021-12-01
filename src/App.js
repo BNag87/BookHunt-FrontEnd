@@ -12,6 +12,7 @@ import Homepage from './components/Homepage'; //homepage component
 import AboutUs from './components/About'; //
 import { useEffect, useState } from 'react';
 import { fetchAPIData, fetchFavourite } from './utils';
+import Faq from './components/FAQ';
 
 //----------→ App Space
 function App() {
@@ -53,6 +54,10 @@ function App() {
               isLoading={isLoading}
               handleSetFav={handleSetFav}
             />
+          </Route>
+
+          <Route exact path="/components/FAQ">
+            <Faq />
           </Route>
 
           <Route exact path="/components/About">
