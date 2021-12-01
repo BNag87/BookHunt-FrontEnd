@@ -1,15 +1,18 @@
 var topNavBarStyle = {
     div:{
-        background: "rgba(0,100,0,0.5)",
+        background: "linear-gradient(to top, rgba(0,100,0,0.5), rgba(0,150,0,1))",
         color: "white",
         width: "100vh%",
         height: "10%",
         padding: "10px",
-        
+        textAlign: "center",
     }
     ,
     h1:{
-        color: "grey"
+        color: "#FFFFBF",
+        textShadow: "2px 2px 2px #cccccc",
+        fontVariant: "small-caps",
+
     }
 }
 
@@ -17,8 +20,8 @@ const TopNavbar  = () => {
 
     return(
         <div style={topNavBarStyle.div}>
-            <h1>I am a H1!</h1>
-            <p>I live in the topbar</p>
+            <h1 style={topNavBarStyle.h1}>Welcome to Book Hunt</h1>
+            
         </div>
 
     )

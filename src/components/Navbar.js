@@ -59,8 +59,10 @@ const Navbar  = () => {
         
         <div className = "customButton" style = {customButtonStyle.div}><h3 style = {customButtonStyle.h3}>Collection</h3></div> 
         
-        <div className = "customButton" style = {customButtonStyle.div}><h3 style = {customButtonStyle.h3}>FAQ</h3></div> 
-        
+        <Link to="/components/FAQ">
+            <div className = "customButton" style = {customButtonStyle.div}><h3 style = {customButtonStyle.h3}>FAQ</h3></div> 
+        </Link>
+
         <Link to="/components/About">
             <div className = "customButton" style = {customButtonStyle.div}><h3 style = {customButtonStyle.h3}>About Us</h3></div> 
         </Link>
