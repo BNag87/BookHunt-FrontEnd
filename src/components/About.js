@@ -58,11 +58,10 @@ var aboutUsStyle = {
  const AboutUs  = () => {
  
      return(
+
     <div className = "wrapper">
-    {/* <div style={aboutUsStyle.div}> */}
-        <div style = {CompanyImage.div}>
-        </div>
-    {/* </div> */}
+
+        <div style = {CompanyImage.div}/>
 
         <div style={aboutUsStyle.div}>
             <div style = {textBoxStyle.div}>
