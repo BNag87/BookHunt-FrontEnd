@@ -1,101 +1,129 @@
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 var navBarStyle = {
-    div:{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        
-        textAlign: "center",
-        background: "rgba(0,100,0,0.5)",
-        color: "white",
-        
-        height: "100vh",
-        padding: "1px",
-        
-        borderStyle: "none double none none",
-    }
-    ,
-    h2:{
-        color: "#FFFFBF",
-        textShadow: "2px 2px 2px #cccccc",
-        fontVariant: "small-caps",
-        fontFamily: "Arial",
-        marginBottom: "5px",
-    }
-}
+  div: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+
+    textAlign: 'center',
+    background: 'rgba(0,100,0,0.5)',
+    color: 'white',
+
+    height: '100vh',
+    padding: '1px',
+
+    borderStyle: 'none double none none',
+  },
+  h2: {
+    color: '#FFFFBF',
+    textShadow: '2px 2px 2px #cccccc',
+    fontVariant: 'small-caps',
+    fontFamily: 'Arial',
+    marginBottom: '5px',
+  },
+};
 
 //used as a container for elements in the navbar
 var containerStyle = {
-        div:{
-        background: "rgba(173,216,230,0.5)",
-        borderRadius: "5px",
-        border: "outset #FFFFAE 1px",
-        padding: "10px",
-        margin: "5px",
-    }
-}
+  div: {
+    background: 'rgba(173,216,230,0.5)',
+    borderRadius: '5px',
+    border: 'outset #FFFFAE 1px',
+    padding: '10px',
+    margin: '5px',
+  },
+};
 
 //css rules for 'buttons'. links provided by react-router
 var customButtonStyle = {
-    div:{
-        background: "rgba(173,216,230,0.5)",
-        borderRadius: "5px",
-        border: "outset #FFFFAE 1px",
-        width: "120px",
-        margin: "5px",
-        padding: "5px",
-        boxShadow: "2px 2px 5px rgba(0,0,0,0.5)",
-        fontFamily: "sans-serif",
-    },
+  div: {
+    background: 'rgba(173,216,230,0.5)',
+    borderRadius: '5px',
+    border: 'outset #FFFFAE 1px',
+    width: '120px',
+    margin: '5px',
+    padding: '5px',
+    boxShadow: '2px 2px 5px rgba(0,0,0,0.5)',
+    fontFamily: 'sans-serif',
+  },
 
-    h3:{
-        color: "#ffffff",
-        textDecoration: "none",
-        fontVariant: "small-caps",
-        margin: "2px",
-        textShadow: "3px 1px 2px rgba(2,20,50,0.5)"
-        },
-}
+  h3: {
+    color: '#ffffff',
+    textDecoration: 'none',
+    fontVariant: 'small-caps',
+    margin: '2px',
+    textShadow: '3px 1px 2px rgba(2,20,50,0.5)',
+  },
+};
 
 //actual navbar as JSX
-const Navbar  = () => {
+const Navbar = ({ user, handleLogOut }) => {
+  return (
+    <div style={navBarStyle.div}>
+      <h2 style={navBarStyle.h2}>Links</h2>
 
-    return(
-        <div style={navBarStyle.div}>
-            <h2 style = {navBarStyle.h2}>Links</h2>
-        
-        <div style = {containerStyle.div}>
-            <Link to="/components/Homepage">
-                <div style = {customButtonStyle.div}><h3 style = {customButtonStyle.h3}>Home</h3></div> 
+      <div style={containerStyle.div}>
+        <Link to="/Homepage">
+          <div style={customButtonStyle.div}>
+            <h3 style={customButtonStyle.h3}>Home</h3>
+          </div>
+        </Link>
+
+        <div style={customButtonStyle.div}>
+          <h3 style={customButtonStyle.h3}>Collection</h3>
+        </div>
+
+        <Link to="/FAQ">
+          <div style={customButtonStyle.div}>
+            <h3 style={customButtonStyle.h3}>FAQ</h3>
+          </div>
+        </Link>
+
+        <Link to="/About">
+          <div style={customButtonStyle.div}>
+            <h3 style={customButtonStyle.h3}>About Us</h3>
+          </div>
+        </Link>
+      </div>
+
+      <h2 style={navBarStyle.h2}>Search</h2>
+      <div style={containerStyle.div}>
+        <input type="text" placeholder="The Northern Lights"></input>
+      </div>
+
+      <h2 style={navBarStyle.h2}>Account</h2>
+      <div style={containerStyle.div}>
+        {user ? (
+          <>
+            <Link to="/account">
+              <div style={customButtonStyle.div}>
+                <h3 style={customButtonStyle.h3}>My Account</h3>
+              </div>
             </Link>
-        
-            <div style = {customButtonStyle.div}><h3 style = {customButtonStyle.h3}>Collection</h3></div> 
-        
-            <Link to="/components/FAQ">
-                <div style = {customButtonStyle.div}><h3 style = {customButtonStyle.h3}>FAQ</h3></div> 
+            <Link to="/" onClick={handleLogOut}>
+              <div style={customButtonStyle.div}>
+                <h3 style={customButtonStyle.h3}>Log Out</h3>
+              </div>
             </Link>
-
-            <Link to="/components/About">
-                <div style = {customButtonStyle.div}><h3 style = {customButtonStyle.h3}>About Us</h3></div> 
+          </>
+        ) : (
+          <>
+            <Link to="/login">
+              <div style={customButtonStyle.div}>
+                <h3 style={customButtonStyle.h3}>Login</h3>
+              </div>
             </Link>
-        </div>
-
-        <h2 style = {navBarStyle.h2}>Search</h2>
-        <div style = {containerStyle.div}>
-            <input type = "text" placeholder = "The Northern Lights"></input>
-        </div>
-
-        <h2 style = {navBarStyle.h2}>Login</h2>
-        <div style = {containerStyle.div}>
-        <div style = {customButtonStyle.div}><h3 style = {customButtonStyle.h3}>Login</h3></div> 
-        </div>
-        
-
-        </div>
-
-    )
-
-}
+            <Link to="/signup">
+              <div style={customButtonStyle.div}>
+                <h3 style={customButtonStyle.h3}>Sign Up</h3>
+              </div>
+            </Link>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default Navbar;

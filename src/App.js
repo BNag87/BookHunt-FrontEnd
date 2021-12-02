@@ -97,23 +97,29 @@ function App() {
     //  navigate('/signup');
   };
 
+  const handleLogOut = () => {
+    localStorage.clear();
+    setUser(null);
+    // navigate('/login');
+  };
+
   return (
     <Router>
       <TopNavbar />
       <Switch>
         <div className="row2">
-          <Navbar />
-          <Route exact path="/components/Homepage">
+          <Navbar user={user} handleLogOut={handleLogOut} />
+          <Route path="/Homepage">
             <Homepage
               apiData={apiData}
               isLoading={isLoading}
               handleSetFav={handleSetFav}
             />
           </Route>
-          <Route exact path="/components/FAQ">
+          <Route path="/FAQ">
             <Faq />
           </Route>
-          <Route exact path="/components/About">
+          <Route path="/About">
             <AboutUs />
           </Route>
           <Route path="/login">
