@@ -3,40 +3,42 @@
 
 //import an image to display
 import companyImg from "../images/CompanyLogo.png";
+import { Style, textBoxStyle }  from "../Style"
 
 //css style for a container div that contains text
-var aboutUsStyle = {
-    div:{
+// var aboutUsStyle = {
+//     div:{
 
-        border: "solid black 2px",
-        background: "rgba(90,90,90,0.5)",
-        margin: "5px",
-        padding: "10px 10px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "10px"
-     },
-  }
+//         border: "solid black 2px",
+//         background: "rgba(90,90,90,0.5)",
+//         margin: "5px",
+//         padding: "10px 10px",
+//         display: "flex",
+//         flexDirection: "column",
+//         gap: "10px",
+//         justifyContent: "space-evenly",
+//      },
+//   }
  
 //css style for a text box containing faq text
- var textBoxStyle = {
-    div:{
-        border: "outset black 1.5px",
-        borderRadius: "8px",
-        background: "rgba(150,150,150,1)",
-        boxShadow: "3px 3px 5px rgb(100,100,100)",
-        margin: "8px",
-        padding: "2px",
-        color: "white",
-        textAlign: "center",
-        fontSize: "medium",
-        fontFamily: "sans-serif",
-    },
-    h3:{
-        color: "khaki",
-    },
+//  var textBoxStyle = {
+//     div:{
+//         border: "outset black 1.5px",
+//         borderRadius: "8px",
+//         background: "rgba(150,150,150,1)",
+//         boxShadow: "3px 3px 5px rgb(100,100,100)",
+//         margin: "8px",
+//         padding: "2px",
+//         color: "white",
+//         textAlign: "center",
+//         fontSize: "medium",
+//         fontFamily: "sans-serif",
+//     },
+//     h3:{
+//         color: "khaki",
+//     },
 
- }
+//  }
 
 //css style to use an image in a div
  var CompanyImage = {
@@ -48,7 +50,6 @@ var aboutUsStyle = {
         textAlign: "center",
         margin: "5px",
         padding: "5px",
-        // width: "50%",
         height: "200px"
     },
     
@@ -63,7 +64,7 @@ var aboutUsStyle = {
 
         <div style = {CompanyImage.div}/>
 
-        <div style={aboutUsStyle.div}>
+        <div style={Style.div}>
             <div style = {textBoxStyle.div}>
                 <h3 style = {textBoxStyle.h3}>Want something to stimulate the brain? So do we!</h3>
                 <p>Here at Book Hunt, we want to help you shrug off any boredom and dive in to a new story that will ignite your imagination.</p>
