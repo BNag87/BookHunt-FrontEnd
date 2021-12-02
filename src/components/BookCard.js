@@ -14,7 +14,15 @@ import { Favorite, FavoriteBorder } from '@mui/icons-material';
 //----------→ Component Imports
 import BookDescription from './BookDescription';
 
-const BookCard = ({ title, author, imgUrl, review, description }) => {
+const BookCard = ({
+  id,
+  title,
+  author,
+  imgUrl,
+  review,
+  description,
+  handleSetFav,
+}) => {
   const [isFavourite, setIsFavourite] = useState(false);
 
   // Remove author/summary from title
@@ -22,6 +30,15 @@ const BookCard = ({ title, author, imgUrl, review, description }) => {
 
   // Get the rating as a number
   const bookRating = +review.split(' ')[0];
+
+  const handleFavClick = e => {
+    const id = e.target.closest('.favourite-icon').id;
+
+    // pass the opposite of isFavourite so the handler doesn't need
+    // to wait for the setState to run to received the new value
+    handleSetFav(id, !isFavourite);
+    setIsFavourite(prev => !prev);
+  };
 
   return (
     <Card
@@ -79,13 +96,15 @@ const BookCard = ({ title, author, imgUrl, review, description }) => {
           />
           <IconButton
             aria-label="add book to favourites"
-            onClick={() => setIsFavourite(prev => !prev)}
+            className="favourite-icon"
+            id={id}
+            onClick={handleFavClick}
             sx={{ fontSize: 'inherit' }}
           >
             {isFavourite ? (
-              <Favorite sx={{ color: 'red' }} fontSize="inherit" />
+              <Favorite sx={{ color: 'red' }} fontSize="inherit" id={id} />
             ) : (
-              <FavoriteBorder fontSize="inherit" />
+              <FavoriteBorder fontSize="inherit" id={id} />
             )}
           </IconButton>
         </Paper>
