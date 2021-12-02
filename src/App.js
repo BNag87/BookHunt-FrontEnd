@@ -11,35 +11,90 @@ import TopNavbar from './components/TopNavBar'; //navbar for the top of the page
 import Homepage from './components/Homepage'; //homepage component
 import AboutUs from './components/About'; //about page component
 import Faq from './components/FAQ'; //faq page component
+import Login from './pages/LogIn'; // login page
+
+import './styles/form.css';
 
 import { useEffect, useState } from 'react';
-import { fetchAPIData, fetchFavourite } from './utils';
+import {
+  fetchSignUp,
+  fetchLogIn,
+  fetchUpdateUser,
+  fetchDeleteAccount,
+  fetchAPIData,
+  fetchFavourite,
+  getUser,
+} from './utils';
+import SignUp from './pages/SignUp';
+import Account from './pages/Account';
 
 //----------→ App Space
 function App() {
   const [apiData, setApiData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+  const [currentPass, setCurrentPass] = useState('');
+  const [stayLoggedIn, setStayLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchOnLoad() {
       setIsLoading(true);
+      await getUser(setUser, setStayLoggedIn);
       await fetchAPIData(setApiData);
       setIsLoading(false);
     }
 
-    // temp for testing
-    setUser(() => {
-      return {
-        token:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWE2NDU4YThmMDFiNDM5NzQwNGIwZWUiLCJpYXQiOjE2MzgyODY3MzB9.TeaawgdxpR-NUJd5AtvQb4v4x80GkXHXv7TfKxP67Lk',
-      };
-    });
     return fetchOnLoad();
   }, []);
 
   const handleSetFav = async (id, isFav) => {
     await fetchFavourite(id, isFav, user);
+  };
+
+  const handleSignUpSubmit = async e => {
+    e.preventDefault();
+    setIsLoading(true);
+    await fetchSignUp(username, email, pass, setUser, stayLoggedIn);
+    setIsLoading(false);
+    setUsername('');
+    setEmail('');
+    setPass('');
+    // navigate('/');
+  };
+
+  const handleLogInSubmit = async e => {
+    e.preventDefault();
+    setIsLoading(true);
+    await fetchLogIn(email, pass, setUser, stayLoggedIn);
+    setIsLoading(false);
+    setEmail('');
+    setPass('');
+    // navigate('/');
+  };
+
+  const handleAccountSubmit = async e => {
+    e.preventDefault();
+    setIsLoading(true);
+    const updateObj = {
+      update: { username: user.username },
+      newInfo: { username, email, password: pass },
+    };
+    await fetchUpdateUser(updateObj, user, setUser, stayLoggedIn, currentPass);
+    setIsLoading(false);
+    setUsername('');
+    setEmail('');
+    setPass('');
+    setCurrentPass('');
+  };
+
+  const handleDeleteAccount = async () => {
+    setIsLoading(true);
+    await fetchDeleteAccount(user);
+    setIsLoading(false);
+    //  navigate('/signup');
   };
 
   return (
@@ -48,7 +103,6 @@ function App() {
       <Switch>
         <div className="row2">
           <Navbar />
-
           <Route exact path="/components/Homepage">
             <Homepage
               apiData={apiData}
@@ -56,13 +110,50 @@ function App() {
               handleSetFav={handleSetFav}
             />
           </Route>
-
           <Route exact path="/components/FAQ">
             <Faq />
           </Route>
-
           <Route exact path="/components/About">
             <AboutUs />
+          </Route>
+          <Route path="/login">
+            <Login
+              email={email}
+              setEmail={setEmail}
+              pass={pass}
+              setPass={setPass}
+              setStayLoggedIn={setStayLoggedIn}
+              handleLogInSubmit={handleLogInSubmit}
+              isLoading={isLoading}
+            />
+          </Route>
+          <Route path="/signup">
+            <SignUp
+              username={username}
+              setUsername={setUsername}
+              email={email}
+              setEmail={setEmail}
+              pass={pass}
+              setPass={setPass}
+              setStayLoggedIn={setStayLoggedIn}
+              handleSignUpSubmit={handleSignUpSubmit}
+              isLoading={isLoading}
+            />
+          </Route>
+          <Route path="/account">
+            <Account
+              username={username}
+              setUsername={setUsername}
+              email={email}
+              setEmail={setEmail}
+              pass={pass}
+              setPass={setPass}
+              currentPass={currentPass}
+              setCurrentPass={setCurrentPass}
+              handleAccountSubmit={handleAccountSubmit}
+              isLoading={isLoading}
+              handleDeleteAccount={handleDeleteAccount}
+            />
           </Route>
         </div>
       </Switch>
