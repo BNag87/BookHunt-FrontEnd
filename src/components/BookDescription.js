@@ -1,28 +1,54 @@
 //----------→ Framework Imports
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Paper,
-  Typography,
-} from '@mui/material';
-import { ExpandMore } from '@mui/icons-material';
+import { Button, Paper, Popover, Typography } from '@mui/material';
+import { useState } from 'react';
 
 const BookDescription = ({ description }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'book-description-popover' : undefined;
+
   return (
     <Paper variant="outlined" sx={{ mb: 1.5, width: '90%' }}>
-      <Accordion sx={{ '&::before': { display: 'none' } }} elevation={0}>
-        <AccordionSummary
-          expandIcon={<ExpandMore />}
-          id="bookDescription"
-          aria-controls="expandedBookDescription"
+      <Button
+        aria-describedby={id}
+        variant="outlined"
+        onClick={handleClick}
+        sx={{ width: '100%', color: 'text.primary' }}
+      >
+        View Description...
+      </Button>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        sx={{}}
+      >
+        <Typography
+          variant="body1"
+          sx={{
+            p: 3,
+            maxWidth: '300px',
+            maxHeight: '300px',
+            overflowY: 'auto',
+          }}
         >
-          {description.substring(0, 20)}...
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography variant="body1">{description}</Typography>
-        </AccordionDetails>
-      </Accordion>
+          {description}
+        </Typography>
+      </Popover>
     </Paper>
   );
 };
