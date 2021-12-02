@@ -11,22 +11,25 @@ var aboutUsStyle = {
         border: "solid black 2px",
         background: "rgba(90,90,90,0.5)",
         margin: "5px",
-        padding: "5px",
+        padding: "10px 10px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px"
      },
   }
  
 //css style for a text box containing faq text
  var textBoxStyle = {
     div:{
-        border: "outset black 1px",
-        borderRadius: "5px",
+        border: "outset black 1.5px",
+        borderRadius: "8px",
         background: "rgba(150,150,150,1)",
         boxShadow: "3px 3px 5px rgb(100,100,100)",
-        margin: "10px",
-        padding: "10px",
+        margin: "8px",
+        padding: "2px",
         color: "white",
         textAlign: "center",
-        fontSize: "large",
+        fontSize: "medium",
         fontFamily: "sans-serif",
     },
     h3:{
@@ -45,7 +48,8 @@ var aboutUsStyle = {
         textAlign: "center",
         margin: "5px",
         padding: "5px",
-        width: "50%",
+        // width: "50%",
+        height: "200px"
     },
     
     h1:{}
@@ -54,7 +58,9 @@ var aboutUsStyle = {
  const AboutUs  = () => {
  
      return(
-    <>
+
+    <div className = "wrapper">
+
         <div style = {CompanyImage.div}/>
 
         <div style={aboutUsStyle.div}>
@@ -82,7 +88,7 @@ var aboutUsStyle = {
                 <p>Finally, once we have a nice tan, we will roast parsnips underwater.</p>
             </div>
         </div>
-    </>
+    </div>
     )
  
  }

@@ -5,26 +5,27 @@ import faqImage from "../images/faqImg.png";
 var faqStyle = {
     div:{
         display: "flex",
+        gap: "10px",
         flexDirection: "column",
         justifyContent: "space-evenly",
         border: "solid black 2px",
         background: "rgba(90,90,90,0.5)",
         margin: "5px",
-        padding: "5px",
+        padding: "10px 10px"
      },
   }
  
 //css style for a text box containing about us text
  var textBoxStyle = {
     div:{
-        border: "outset black 1px",
-        borderRadius: "5px",
+        border: "outset black 1.5px",
+        borderRadius: "8px",
         background: "rgba(150,150,150,1)",
-        margin: "5px",
-        padding: "12px",
+        margin: "8px",
+        padding: "2px",
         color: "white",
         textAlign: "center",
-        fontSize: "large",
+        fontSize: "medium",
         fontFamily: "sans-serif",
         boxShadow: "3px 3px 5px rgb(100,100,100)"
     },
@@ -38,13 +39,15 @@ var faqStyle = {
  var faqImageStyle = {
     div:{
         backgroundImage: `url(${faqImage})`,
-        backgroundPosition: "center",
+        backgroundPosition: "center top",
+        alignSelf: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "contain",
         textAlign: "center",
         margin: "5px",
         padding: "5px",
-        width: "50%",
+        // width: "10%",
+        height: "150px"
     },
     
  }
@@ -52,7 +55,7 @@ var faqStyle = {
  const Faq  = () => {
  
      return(
-    <>
+    <div className = "wrapper">
         <div style = {faqImageStyle.div}></div>
         
         <div style={faqStyle.div}>
@@ -82,7 +85,7 @@ var faqStyle = {
             </div>
         </div>
 
-    </>
+    </div>
     )
  
  }
