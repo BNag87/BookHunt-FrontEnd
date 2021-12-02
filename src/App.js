@@ -106,16 +106,10 @@ function App() {
   return (
     <Router>
       <TopNavbar />
-      <Switch>
-        <div className="row2">
-          <Navbar user={user} handleLogOut={handleLogOut} />
-          <Route path="/Homepage">
-            <Homepage
-              apiData={apiData}
-              isLoading={isLoading}
-              handleSetFav={handleSetFav}
-            />
-          </Route>
+      <div className="row2">
+        <Navbar user={user} handleLogOut={handleLogOut} />
+
+        <Switch>
           <Route path="/FAQ">
             <Faq />
           </Route>
@@ -161,8 +155,16 @@ function App() {
               handleDeleteAccount={handleDeleteAccount}
             />
           </Route>
-        </div>
-      </Switch>
+
+          <Route path="/">
+            <Homepage
+              apiData={apiData}
+              isLoading={isLoading}
+              handleSetFav={handleSetFav}
+            />
+          </Route>
+        </Switch>
+      </div>
     </Router>
   );
 }
