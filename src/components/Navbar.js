@@ -64,7 +64,7 @@ const Navbar = ({ user, handleLogOut }) => {
       <h2 style={navBarStyle.h2}>Links</h2>
 
       <div style={containerStyle.div}>
-        <Link to="/Homepage">
+        <Link to="/">
           <div style={customButtonStyle.div}>
             <h3 style={customButtonStyle.h3}>Home</h3>
           </div>
