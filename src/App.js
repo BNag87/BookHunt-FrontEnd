@@ -1,5 +1,6 @@
 //----------→ File Imports
 import './App.css';
+import './styles/form.css';
 
 //----------→ Framework Imports
 //----→ react-router allows navigation between pages
@@ -12,10 +13,6 @@ import Homepage from './components/Homepage'; //homepage component
 import AboutUs from './components/About'; //about page component
 import Faq from './components/FAQ'; //faq page component
 import Login from './pages/LogIn'; // login page
-
-
-
-import './styles/form.css';
 
 import { useEffect, useState } from 'react';
 import {
@@ -41,10 +38,8 @@ function App() {
   const [stayLoggedIn, setStayLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
-  const [alertType, setAlertType] = useState("");
-  const [alertMessage, setAlertMessage] = useState("");
-
- 
+  const [alertType, setAlertType] = useState('');
+  const [alertMessage, setAlertMessage] = useState('');
 
   useEffect(() => {
     async function fetchOnLoad() {
@@ -68,8 +63,16 @@ function App() {
   const handleSignUpSubmit = async e => {
     e.preventDefault();
     setIsLoading(true);
-    await fetchSignUp(username, email, pass, setUser, stayLoggedIn, setAlertType, setAlertMessage);
-    handleAlert()
+    await fetchSignUp(
+      username,
+      email,
+      pass,
+      setUser,
+      stayLoggedIn,
+      setAlertType,
+      setAlertMessage
+    );
+    handleAlert();
     setIsLoading(false);
     setUsername('');
     setEmail('');
@@ -80,8 +83,15 @@ function App() {
   const handleLogInSubmit = async e => {
     e.preventDefault();
     setIsLoading(true);
-    await fetchLogIn(email, pass, setUser, stayLoggedIn, setAlertType, setAlertMessage);
-    handleAlert()
+    await fetchLogIn(
+      email,
+      pass,
+      setUser,
+      stayLoggedIn,
+      setAlertType,
+      setAlertMessage
+    );
+    handleAlert();
     setIsLoading(false);
     setEmail('');
     setPass('');
@@ -95,8 +105,16 @@ function App() {
       update: { username: user.username },
       newInfo: { username, email, password: pass },
     };
-    await fetchUpdateUser(updateObj, user, setUser, stayLoggedIn, currentPass, setAlertType, setAlertMessage);
-    handleAlert()
+    await fetchUpdateUser(
+      updateObj,
+      user,
+      setUser,
+      stayLoggedIn,
+      currentPass,
+      setAlertType,
+      setAlertMessage
+    );
+    handleAlert();
     setIsLoading(false);
     setUsername('');
     setEmail('');
@@ -107,7 +125,7 @@ function App() {
   const handleDeleteAccount = async () => {
     setIsLoading(true);
     await fetchDeleteAccount(user, setAlertType, setAlertMessage);
-    handleAlert()
+    handleAlert();
     setIsLoading(false);
     //  navigate('/signup');
   };
@@ -140,7 +158,7 @@ function App() {
               setStayLoggedIn={setStayLoggedIn}
               handleLogInSubmit={handleLogInSubmit}
               isLoading={isLoading}
-              openAlert= {openAlert}
+              openAlert={openAlert}
               setOpenAlert={setOpenAlert}
               alertType={alertType}
               alertMessage={alertMessage}
@@ -157,7 +175,7 @@ function App() {
               setStayLoggedIn={setStayLoggedIn}
               handleSignUpSubmit={handleSignUpSubmit}
               isLoading={isLoading}
-              openAlert= {openAlert}
+              openAlert={openAlert}
               setOpenAlert={setOpenAlert}
               alertType={alertType}
               alertMessage={alertMessage}
@@ -176,7 +194,7 @@ function App() {
               handleAccountSubmit={handleAccountSubmit}
               isLoading={isLoading}
               handleDeleteAccount={handleDeleteAccount}
-              openAlert= {openAlert}
+              openAlert={openAlert}
               setOpenAlert={setOpenAlert}
               alertType={alertType}
               alertMessage={alertMessage}
