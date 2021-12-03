@@ -5,6 +5,7 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import LoadingSpinner from '../components/LoadingSpinner';
 import AccountForm from '../components/AccountForm';
+import CustomizedSnackbars from '../components/CustomizedSnackbars';
 
 const Account = ({
   username,
@@ -18,6 +19,10 @@ const Account = ({
   handleAccountSubmit,
   isLoading,
   handleDeleteAccount,
+  openAlert,
+  setOpenAlert,
+  alertType,
+  alertMessage
 }) => {
   return (
     <>
@@ -41,6 +46,12 @@ const Account = ({
           setPass={setPass}
           handleAccountSubmit={handleAccountSubmit}
           handleDeleteAccount={handleDeleteAccount}
+        />
+         <CustomizedSnackbars
+        openAlert = {openAlert}
+        setOpenAlert= {setOpenAlert}
+        alertType = {alertType}
+        message={alertMessage}
         />
       </Box>
     </>
