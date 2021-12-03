@@ -1,50 +1,54 @@
 //import an image to display
 import faqImage from "../images/faqImg.png";
+import { Style, textBoxStyle }  from "../Style"
 
 //css style for a container div that contains text
-var faqStyle = {
-    div:{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-evenly",
-        border: "solid black 2px",
-        background: "rgba(90,90,90,0.5)",
-        margin: "5px",
-        padding: "5px",
-     },
-  }
+// var faqStyle = {
+//     div:{
+//         display: "flex",
+//         gap: "10px",
+//         flexDirection: "column",
+//         justifyContent: "space-evenly",
+//         border: "solid black 2px",
+//         background: "rgba(90,90,90,0.5)",
+//         margin: "5px",
+//         padding: "10px 10px"
+//      },
+//   }
  
 //css style for a text box containing about us text
- var textBoxStyle = {
-    div:{
-        border: "outset black 1px",
-        borderRadius: "5px",
-        background: "rgba(150,150,150,1)",
-        margin: "5px",
-        padding: "12px",
-        color: "white",
-        textAlign: "center",
-        fontSize: "large",
-        fontFamily: "sans-serif",
-        boxShadow: "3px 3px 5px rgb(100,100,100)"
-    },
-    h3:{
-        color: "khaki",
-    },
+//  var textBoxStyle = {
+//     div:{
+//         border: "outset black 1.5px",
+//         borderRadius: "8px",
+//         background: "rgba(150,150,150,1)",
+//         margin: "8px",
+//         padding: "2px",
+//         color: "white",
+//         textAlign: "center",
+//         fontSize: "medium",
+//         fontFamily: "sans-serif",
+//         boxShadow: "3px 3px 5px rgb(100,100,100)"
+//     },
+//     h3:{
+//         color: "khaki",
+//     },
 
- }
+//  }
 
 //css style to use an image in a div
  var faqImageStyle = {
     div:{
         backgroundImage: `url(${faqImage})`,
-        backgroundPosition: "center",
+        backgroundPosition: "center top",
+        alignSelf: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "contain",
         textAlign: "center",
         margin: "5px",
         padding: "5px",
-        width: "50%",
+        // width: "10%",
+        height: "150px"
     },
     
  }
@@ -52,10 +56,10 @@ var faqStyle = {
  const Faq  = () => {
  
      return(
-    <>
+    <div className = "wrapper">
         <div style = {faqImageStyle.div}></div>
         
-        <div style={faqStyle.div}>
+        <div style={Style.div}>
             <div style = {textBoxStyle.div}>
             <h3 style = {textBoxStyle.h3}>What is a book?</h3>
             <p>Seriously? You've made it this far through life without knowing what a book is? Would you like some more glue to sniff?</p>
@@ -82,7 +86,7 @@ var faqStyle = {
             </div>
         </div>
 
-    </>
+    </div>
     )
  
  }

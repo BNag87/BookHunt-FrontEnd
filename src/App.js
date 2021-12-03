@@ -97,23 +97,23 @@ function App() {
     //  navigate('/signup');
   };
 
+  const handleLogOut = () => {
+    localStorage.clear();
+    setUser(null);
+    // navigate('/login');
+  };
+
   return (
     <Router>
       <TopNavbar />
-      <Switch>
-        <div className="row2">
-          <Navbar />
-          <Route exact path="/components/Homepage">
-            <Homepage
-              apiData={apiData}
-              isLoading={isLoading}
-              handleSetFav={handleSetFav}
-            />
-          </Route>
-          <Route exact path="/components/FAQ">
+      <div className="row2">
+        <Navbar user={user} handleLogOut={handleLogOut} />
+
+        <Switch>
+          <Route path="/FAQ">
             <Faq />
           </Route>
-          <Route exact path="/components/About">
+          <Route path="/About">
             <AboutUs />
           </Route>
           <Route path="/login">
@@ -155,8 +155,16 @@ function App() {
               handleDeleteAccount={handleDeleteAccount}
             />
           </Route>
-        </div>
-      </Switch>
+
+          <Route path="/">
+            <Homepage
+              apiData={apiData}
+              isLoading={isLoading}
+              handleSetFav={handleSetFav}
+            />
+          </Route>
+        </Switch>
+      </div>
     </Router>
   );
 }
