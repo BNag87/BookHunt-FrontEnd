@@ -5,6 +5,8 @@ import { Typography } from '@mui/material';
 import LoadingSpinner from '../components/LoadingSpinner';
 import LogInForm from '../components/LogInForm';
 import { Box } from '@mui/system';
+import CustomizedSnackbars from '../components/CustomizedSnackbars';
+
 
 const LogIn = ({
   email,
@@ -15,7 +17,12 @@ const LogIn = ({
   setStayLoggedIn,
   handleLogInSubmit,
   isLoading,
+  openAlert,
+  setOpenAlert,
+  alertType,
+  alertMessage
 }) => {
+
   return (
     <>
       <Box sx={{ maxWidth: '900px', margin: '0 auto' }}>
@@ -35,6 +42,12 @@ const LogIn = ({
           stayLoggedIn={stayLoggedIn}
           setStayLoggedIn={setStayLoggedIn}
           handleLogInSubmit={handleLogInSubmit}
+        />
+        <CustomizedSnackbars
+        openAlert = {openAlert}
+        setOpenAlert= {setOpenAlert}
+        alertType = {alertType}
+        message={alertMessage}
         />
       </Box>
     </>

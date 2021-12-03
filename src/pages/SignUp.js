@@ -5,6 +5,7 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import LoadingSpinner from '../components/LoadingSpinner';
 import SignUpForm from '../components/SignUpForm';
+import CustomizedSnackbars from '../components/CustomizedSnackbars';
 
 const SignUp = ({
   username,
@@ -17,6 +18,10 @@ const SignUp = ({
   setStayLoggedIn,
   handleSignUpSubmit,
   isLoading,
+  openAlert,
+  setOpenAlert,
+  alertType,
+  alertMessage
 }) => {
   return (
     <>
@@ -39,6 +44,12 @@ const SignUp = ({
           stayLoggedIn={stayLoggedIn}
           setStayLoggedIn={setStayLoggedIn}
           handleSignUpSubmit={handleSignUpSubmit}
+        />
+         <CustomizedSnackbars
+        openAlert = {openAlert}
+        setOpenAlert= {setOpenAlert}
+        alertType = {alertType}
+        message={alertMessage}
         />
       </Box>
     </>

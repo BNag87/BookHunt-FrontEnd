@@ -52,7 +52,9 @@ export const fetchSignUp = async (
   email,
   password,
   setUser,
-  stayLoggedIn
+  stayLoggedIn,
+  setAlertType,
+  setAlertMessage
 ) => {
   try {
     const response = await fetch(`${process.env.REACT_APP_REST_API}user`, {
@@ -67,10 +69,14 @@ export const fetchSignUp = async (
       }),
     });
 
-    if (!response.ok) throw new Error('Error creating new user');
-
+    if (!response.ok) {
+      setAlertType("error")
+      setAlertMessage('Error signing up')
+      throw new Error('Error signing up');}
+  
     const responseObj = await response.json();
-    console.log(responseObj);
+    setAlertType("success")
+    setAlertMessage("Sign up successful, you are now logged in");
 
     const {
       newUser: { username: newUsername, email: newEmail },
@@ -93,7 +99,8 @@ export const fetchSignUp = async (
   }
 };
 
-export const fetchLogIn = async (email, password, setUser, stayLoggedIn) => {
+export const fetchLogIn = async (email, password, setUser, stayLoggedIn, setAlertType,
+  setAlertMessage) => {
   try {
     const response = await fetch(`${process.env.REACT_APP_REST_API}login`, {
       method: 'POST',
@@ -106,10 +113,15 @@ export const fetchLogIn = async (email, password, setUser, stayLoggedIn) => {
       }),
     });
 
-    if (!response.ok) throw new Error('Error logging in');
-
+    if (!response.ok) {
+      setAlertType("error")
+      setAlertMessage('Error logging in')
+      throw new Error('Error logging in');}
+  
     const responseObj = await response.json();
-    console.log(responseObj);
+    setAlertType("success")
+    setAlertMessage("Log in successful");
+  
 
     const {
       user: { username, email: userEmail },
@@ -137,7 +149,9 @@ export const fetchUpdateUser = async (
   user,
   setUser,
   stayLoggedIn,
-  currentPass
+  currentPass,
+  setAlertType,
+  setAlertMessage
 ) => {
   try {
     const body = updateObj;
@@ -152,20 +166,26 @@ export const fetchUpdateUser = async (
       body: JSON.stringify(body),
     });
 
-    if (!response.ok) throw new Error('Error updating account info');
-
+    if (!response.ok) {
+      setAlertType("error")
+      setAlertMessage('Error updating account')
+      throw new Error('Error updating account');}
+  
     const responseObj = await response.json();
+   
 
     const password = updateObj.newInfo.password || currentPass;
 
     await fetchLogIn(responseObj.doc.email, password, setUser, stayLoggedIn);
-    console.log(responseObj.message);
+    setAlertType("success")
+    setAlertMessage(responseObj.message);
   } catch (err) {
     console.error('💥 💥', err);
   }
 };
 
-export const fetchDeleteAccount = async user => {
+export const fetchDeleteAccount = async (user, setAlertType,
+  setAlertMessage) => {
   const response = await fetch(`${process.env.REACT_APP_REST_API}user`, {
     method: 'DELETE',
     headers: {
@@ -175,10 +195,14 @@ export const fetchDeleteAccount = async user => {
     body: JSON.stringify({ username: user.username }),
   });
 
-  if (!response.ok) throw new Error('Error deleting account');
+  if (!response.ok) {
+    setAlertType("error")
+    setAlertMessage('Error deleting account')
+    throw new Error('Error deleting account');}
 
   const responseObj = await response.json();
-  console.log(responseObj.message);
+  setAlertType("success")
+  setAlertMessage(responseObj.message);
 };
 
 export const fetchAPIData = async setApiData => {
