@@ -6,5 +6,6 @@ body {
 h1,
 h2,
 h3 {
-  font-family: 'Rufina', serif;
+  font-family: 'Spectral SC', serif;
+  font-variant: small-caps;
 }

@@ -23,8 +23,7 @@ exports.textBoxStyle = {
     color: 'white',
     textAlign: 'center',
     fontSize: 'medium',
-    fontFamily: "'Montserrat', sans-serif",
-    boxShadow: '3px 3px 5px rgb(100,100,100)',
+    boxShadow: '3px 3px 5px rgba(100,100,100,0.8)',
   },
   h3: {
     color: 'khaki',
