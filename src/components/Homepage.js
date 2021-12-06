@@ -5,6 +5,7 @@
 import { useEffect } from 'react';
 import CardDeck from './CardDeck';
 import LoadingSpinner from './LoadingSpinner';
+import SearchForm from './SearchForm';
 
 var homepageWindowStyle = {
   div: {
@@ -34,6 +35,7 @@ const Homepage = ({
   getUser,
   setUser,
   setStayLoggedIn,
+  handleSearchBooks,
 }) => {
   useEffect(() => {
     async function fetchOnLoad() {
@@ -50,6 +52,7 @@ const Homepage = ({
   return (
     <div style={homepageWindowStyle.div}>
       <LoadingSpinner isLoading={isLoading} />
+      <SearchForm handleSearchBooks={handleSearchBooks} />
       <CardDeck
         data={apiData}
         handleSetFav={handleSetFav}

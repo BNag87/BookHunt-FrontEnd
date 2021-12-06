@@ -2,7 +2,7 @@ var topNavBarStyle = {
   div: {
     background: 'linear-gradient(to top, rgba(0,100,0,0.5), rgba(0,150,0,1))',
     color: 'white',
-    width: '100vh%',
+    width: '100vw',
     height: '10%',
     padding: '10px',
     textAlign: 'center',
