@@ -27,9 +27,11 @@ var navBarStyle = {
 //used as a container for elements in the navbar
 var containerStyle = {
   div: {
-    background: 'rgba(173,216,230,0.5)',
+    // background: 'rgba(173,216,230,0.5)',
+    background: '#579069',
     borderRadius: '5px',
-    border: 'outset #FFFFAE 1px',
+    // border: 'outset #FFFFAE 1px',
+    border: 'outset #42635b 1px' ,
     padding: '10px',
     margin: '5px',
   },
@@ -38,9 +40,12 @@ var containerStyle = {
 //css rules for 'buttons'. links provided by react-router
 var customButtonStyle = {
   div: {
-    background: 'rgba(173,216,230,0.5)',
+    // background: 'rgba(173,216,230,0.5)',
+    background: '#7FB08E',
+
     borderRadius: '5px',
-    border: 'outset #FFFFAE 1px',
+    border: 'outset #42635b 1px',
+    // border: 'outset #FFFFAE 1px',
     width: '120px',
     margin: '5px',
     padding: '5px',
