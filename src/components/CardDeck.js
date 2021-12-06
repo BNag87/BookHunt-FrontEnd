@@ -4,7 +4,8 @@ import { Box } from '@mui/system';
 //----------→ Component Imports
 import BookCard from './BookCard';
 
-const CardDeck = ({ data, handleSetFav, user }) => {
+const CardDeck = ({ data, handleSetFav, handleSetRating }) => {
+
   return (
     <Box
       sx={{
@@ -31,7 +32,11 @@ const CardDeck = ({ data, handleSetFav, user }) => {
             numPages={book.number_of_pages_median}
             amazonId={book.id_amazon?.[0]}
             handleSetFav={handleSetFav}
+
+            handleSetRating={handleSetRating}
+
             user={user}
+
           />
         ))}
     </Box>
