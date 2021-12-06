@@ -97,7 +97,7 @@ export const fetchSignUp = async (
       );
   } catch (err) {
     setAlertType('error');
-    setAlertMessage('Error signing up');
+    setAlertMessage(err.message);
     console.error('💥 💥', err);
   }
 };
@@ -149,7 +149,7 @@ export const fetchLogIn = async (
   } catch (err) {
     console.error('💥 💥', err);
     setAlertType('error');
-    setAlertMessage('Error logging in');
+    setAlertMessage(err.message);
   }
 };
 
@@ -189,7 +189,7 @@ export const fetchUpdateUser = async (
   } catch (err) {
     console.error('💥 💥', err);
     setAlertType('error');
-    setAlertMessage('Error updating account');
+    setAlertMessage(err.message);
   }
 };
 
@@ -218,7 +218,7 @@ export const fetchDeleteAccount = async (
   } catch (err) {
     console.error('💥 💥', err);
     setAlertType('error');
-    setAlertMessage('Error deleting account');
+    setAlertMessage(err.message);
   }
 };
 
@@ -231,9 +231,36 @@ export const fetchAPIData = async setApiData => {
 
     const bookData = await fetchBookData(url, query, options, fields);
 
+    if (!bookData) throw new Error('Error while fetching data');
+
     setApiData(bookData);
   } catch (err) {
     console.error('💥 💥', err);
+  }
+};
+
+export const fetchSearchResults = async (
+  search,
+  setApiData,
+  setAlertType,
+  setAlertMessage
+) => {
+  try {
+    const url = `http://openlibrary.org/search.json`;
+    const query = `?${search.type}=${search.query}`;
+    const options = `&limit=10`;
+    const fields = `&fields=title,first_publish_year,author_name,number_of_pages_median,subject,cover_edition_key,id_amazon,key`;
+
+    const bookData = await fetchBookData(url, query, options, fields);
+
+    if (!bookData)
+      throw new Error('We could not find any results that matched your query');
+
+    setApiData(bookData);
+  } catch (err) {
+    console.error('💥 💥', err);
+    setAlertType('error');
+    setAlertMessage(err.message);
   }
 };
 
@@ -283,21 +310,6 @@ export const fetchFavouriteList = async (
   }
 };
 
-const fetchBookData = async (url, query, options, fields) => {
-  try {
-    // When passing arguments, ensure query starts with ?= then options and fields start with &=
-    const response = await fetch(
-      encodeURI(`${url}${query}${options}${fields}`)
-    );
-
-    if (!response.ok) throw new Error('Error fetching book data');
-
-    return await response.json();
-  } catch (err) {
-    console.error('💥 💥', err);
-  }
-};
-
 export const fetchFavourite = async (id, isFav, user) => {
   try {
     let route;
@@ -339,6 +351,21 @@ export const fetchRating = async (rating, user) => {
     const responseObj = await response.json();
 
     console.log(responseObj);
+  } catch (err) {
+    console.error('💥 💥', err);
+  }
+};
+
+const fetchBookData = async (url, query, options, fields) => {
+  try {
+    // When passing arguments, ensure query starts with ?= then options and fields start with &=
+    const response = await fetch(
+      encodeURI(`${url}${query}${options}${fields}`)
+    );
+
+    if (!response.ok) throw new Error('Error fetching book data');
+
+    return await response.json();
   } catch (err) {
     console.error('💥 💥', err);
   }

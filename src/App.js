@@ -24,6 +24,7 @@ import {
   fetchFavourite,
   getUser,
   fetchRating,
+  fetchSearchResults,
 } from './utils';
 import SignUp from './pages/SignUp';
 import Account from './pages/Account';
@@ -64,6 +65,12 @@ function App() {
 
   const handleSetRating = async rating => {
     await fetchRating(rating, user);
+  };
+
+  const handleSearchBooks = async search => {
+    setIsLoading(true);
+    await fetchSearchResults(search, setApiData, setAlertType, setAlertMessage);
+    setIsLoading(false);
   };
 
   const handleSignUpSubmit = async e => {
@@ -231,6 +238,7 @@ function App() {
               getUser={getUser}
               setUser={setUser}
               setStayLoggedIn={setStayLoggedIn}
+              handleSearchBooks={handleSearchBooks}
             />
           </Route>
         </Switch>
