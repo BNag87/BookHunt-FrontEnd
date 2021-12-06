@@ -23,7 +23,7 @@ import {
   fetchAPIData,
   fetchFavourite,
   getUser,
-  fetchRating
+  fetchRating,
 } from './utils';
 import SignUp from './pages/SignUp';
 import Account from './pages/Account';
@@ -42,7 +42,6 @@ function App() {
   const [openAlert, setOpenAlert] = useState(false);
   const [alertType, setAlertType] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
-  const [favData, setFavData] = useState(null);
 
   useEffect(() => {
     async function fetchOnLoad() {
@@ -63,8 +62,8 @@ function App() {
     await fetchFavourite(id, isFav, user);
   };
 
-  const handleSetRate = async (id, score) => {
-    await fetchRating(id, score, user);
+  const handleSetRating = async rating => {
+    await fetchRating(rating, user);
   };
 
   const handleSignUpSubmit = async e => {
@@ -210,14 +209,15 @@ function App() {
 
           <Route path="/collection">
             <Collection
-              fav={favData}
-              setFavData={setFavData}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
               handleSetFav={handleSetFav}
               user={user}
               setAlertType={setAlertType}
               setAlertMessage={setAlertMessage}
+              getUser={getUser}
+              setUser={setUser}
+              setStayLoggedIn={setStayLoggedIn}
             />
           </Route>
           <Route path="/">
@@ -225,11 +225,12 @@ function App() {
               apiData={apiData}
               isLoading={isLoading}
               handleSetFav={handleSetFav}
-
-              handleSetRate={handleSetRate}
-
+              handleSetRating={handleSetRating}
               user={user}
-
+              setIsLoading={setIsLoading}
+              getUser={getUser}
+              setUser={setUser}
+              setStayLoggedIn={setStayLoggedIn}
             />
           </Route>
         </Switch>

@@ -23,20 +23,22 @@ var collectionWindowStyle = {
 };
 
 const Collection = ({
-  apiData,
-  setApiData,
   isLoading,
   setIsLoading,
   handleSetFav,
   user,
+  handleSetRating,
   setAlertType,
   setAlertMessage,
+  getUser,
+  setUser,
+  setStayLoggedIn,
 }) => {
   const [favData, setFavData] = useState(null);
-
   useEffect(() => {
     async function fetchOnLoad() {
       setIsLoading(true);
+      await getUser(setUser, setStayLoggedIn);
       await fetchFavouriteList(user, setAlertType, setAlertMessage, setFavData);
       setIsLoading(false);
     }
@@ -47,7 +49,12 @@ const Collection = ({
   return (
     <div style={collectionWindowStyle.div}>
       <LoadingSpinner isLoading={isLoading} />
-      <CardDeck data={favData} handleSetFav={handleSetFav} />
+      <CardDeck
+        data={favData}
+        handleSetFav={handleSetFav}
+        handleSetRating={handleSetRating}
+        user={user}
+      />
     </div>
   );
 };

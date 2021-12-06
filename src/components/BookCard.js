@@ -1,5 +1,5 @@
 //----------→ Framework Imports
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Card,
   CardContent,
@@ -19,26 +19,22 @@ const BookCard = ({
   title,
   author,
   imgUrl,
-  review,
   publishYear,
   numPages,
   amazonId,
   handleSetFav,
-
-  handleSetRate,
-}) => {
-  const [isFavourite, setIsFavourite] = useState(false);
-  const [rating, setRating] = useState(false);
-  // Remove author/summary from title
-  const formattedTitle = title.split(':')[0];
-
   user,
+  handleSetRating,
+  userFav,
+  userRating,
 }) => {
   const [isFavourite, setIsFavourite] = useState(false);
+  const [rating, setRating] = useState(2.5);
 
-
-  // Get the rating as a number
-  const bookRating = +review;
+  useEffect(() => {
+    if (userFav) setIsFavourite(true);
+    if (userRating) setRating(userRating);
+  }, [userFav, userRating]);
 
   // If no amazonId then return amazon search results as link
   let amazonLink;
@@ -48,25 +44,33 @@ const BookCard = ({
       `https://www.amazon.co.uk/s/?url=search-alias%3Dstripbooks&field-keywords=${title} ${author}`
     );
 
-  const handleFavClick = e => {
+  // // Look through favourites and set values for any previously favourited books
+  // if (favData)
+  //   favData.forEach(favourite => favourite === id && setIsFavourite(true));
+
+  // // Look through ratings and set values for any previously rated books
+  // if (ratingData)
+  //   ratingData.forEach(rating => rating.id === id && setRating(rating.score));
+
+  const handleFavClick = async e => {
     if (!user) return;
 
     const id = e.target.closest('.favourite-icon').id;
-  
 
     // pass the opposite of isFavourite so the handler doesn't need
     // to wait for the setState to run to received the new value
-    handleSetFav(id, !isFavourite);
+    await handleSetFav(id, !isFavourite);
     setIsFavourite(prev => !prev);
-    
   };
 
-  const handleRateClick = e => {
-    // const score = 
+  const handleRateClick = async e => {
+    if (!user) return;
+
+    const score = +e.target.value;
     const id = e.target.closest('.rating-icon').id;
-    handleSetRate(id, rating);
-  }
-  
+    await handleSetRating({ id, score });
+    setRating(score);
+  };
 
   return (
     <Card
@@ -118,7 +122,7 @@ const BookCard = ({
             name={`${title} rating`}
             className="rating-icon"
             value={rating}
-            precision={0.1}
+            precision={0.5}
             size="large"
             sx={{ mr: 1.5 }}
             id={id}
