@@ -27,6 +27,8 @@ export const getUser = async (setUser, setStayLoggedIn) => {
         username: fetchedUser.user.username,
         email: fetchedUser.user.email,
         token: fetchedUser.token,
+        favourites: fetchedUser.user.favorites,
+        ratings: fetchedUser.user.rating,
       });
 
       // Set stayLoggedIn to true because if savedUser exists they must have checked the box on login/signup.
@@ -321,8 +323,7 @@ export const fetchFavourite = async (id, isFav, user) => {
   }
 };
 
-
-export const fetchRating = async (id, score, user) => {
+export const fetchRating = async (rating, user) => {
   try {
     const response = await fetch(`${process.env.REACT_APP_REST_API}review`, {
       method: 'PUT',
@@ -330,7 +331,7 @@ export const fetchRating = async (id, score, user) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user.token}`,
       },
-      body: JSON.stringify({ id: id }),
+      body: JSON.stringify(rating),
     });
 
     if (!response.ok) throw new Error('Error updating rating');

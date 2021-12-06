@@ -2,6 +2,7 @@
 // import background from '../images/pageBG2.png';
 
 //----------→ Component Imports
+import { useEffect } from 'react';
 import CardDeck from './CardDeck';
 import LoadingSpinner from './LoadingSpinner';
 
@@ -23,11 +24,38 @@ var homepageWindowStyle = {
   },
 };
 
-const Homepage = ({ apiData, isLoading, handleSetFav, user }) => {
+const Homepage = ({
+  apiData,
+  isLoading,
+  handleSetFav,
+  user,
+  handleSetRating,
+  setIsLoading,
+  getUser,
+  setUser,
+  setStayLoggedIn,
+}) => {
+  useEffect(() => {
+    async function fetchOnLoad() {
+      setIsLoading(true);
+      await getUser(setUser, setStayLoggedIn);
+
+      setIsLoading(false);
+    }
+
+    return fetchOnLoad();
+    //eslint-disable-next-line
+  }, []);
+
   return (
     <div style={homepageWindowStyle.div}>
       <LoadingSpinner isLoading={isLoading} />
-      <CardDeck data={apiData} handleSetFav={handleSetFav} user={user} />
+      <CardDeck
+        data={apiData}
+        handleSetFav={handleSetFav}
+        handleSetRating={handleSetRating}
+        user={user}
+      />
     </div>
   );
 };
