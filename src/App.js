@@ -69,7 +69,19 @@ function App() {
 
   const handleSearchBooks = async search => {
     setIsLoading(true);
-    await fetchSearchResults(search, setApiData, setAlertType, setAlertMessage);
+
+    try {
+      await fetchSearchResults(
+        search,
+        setApiData,
+        setAlertType,
+        setAlertMessage
+      );
+    } catch (err) {
+      console.error('💥 💥', err);
+      handleAlert();
+    }
+
     setIsLoading(false);
   };
 
