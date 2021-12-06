@@ -49,10 +49,8 @@ const BookCard = ({
     );
 
   const handleFavClick = e => {
-    if (!user) {
-      console.log('no user');
-      return;
-    }
+    if (!user) return;
+
     const id = e.target.closest('.favourite-icon').id;
   
 

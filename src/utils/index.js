@@ -222,39 +222,12 @@ export const fetchDeleteAccount = async (
 
 export const fetchAPIData = async setApiData => {
   try {
-    // const response = await fetch('https://bookshelves.p.rapidapi.com/books', {
-    //   method: 'GET',
-    //   headers: {
-    //     'x-rapidapi-host': 'bookshelves.p.rapidapi.com',
-    //     'x-rapidapi-key': process.env.REACT_APP_API_KEY,
-    //   },
-    // });
-
-    // const fields =
-    // '&fields=items(id,volumeInfo(title,authors,averageRating,description,imageLinks))';
-
-    // const options =
-    // '&orderBy=relevance&langRestrict=en&printType=books&projection=full';
-
-    // const response = await fetch(
-    //   `https://www.googleapis.com/books/v1/volumes?q=subject:adventure${options}&key=${process.env.REACT_APP_GOOGLE_BOOKS_API_KEY}`
-    // );
-    // const response = await fetch(
-    //   `https://www.googleapis.com/books/v1/users/113436433813695656854/bookshelves/1001/volumes?key=${process.env.REACT_APP_GOOGLE_BOOKS_API_KEY}`
-    // );
-
     const url = `http://openlibrary.org/search.json`;
     const query = `?subject=Fiction, thrillers, general`;
     const options = `&limit=10`;
     const fields = `&fields=title,first_publish_year,author_name,number_of_pages_median,subject,cover_edition_key,id_amazon,key`;
 
     const bookData = await fetchBookData(url, query, options, fields);
-    console.log(bookData);
-    // const images = await Promise.all(
-    //   bookData.docs.map(book => fetchBookImage(book.cover_edition_key))
-    // );
-    // bookData.docs.forEach((book, i) => (book.image = images[i]));
-    // console.log(images, bookData);
 
     setApiData(bookData);
   } catch (err) {
@@ -296,10 +269,10 @@ export const fetchFavouriteList = async (
         return fetchBookData(url, query, options, fields);
       })
     );
+
     let favBooks = {};
     favBooks.docs = favBooksObj.map(el => el.docs[0]);
-    console.log(userFavsObj.listFavBook);
-    console.log(favBooks);
+
     setFavData(favBooks);
   } catch (err) {
     console.error('💥 💥', err);
