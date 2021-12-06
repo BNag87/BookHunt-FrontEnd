@@ -22,9 +22,10 @@ const BookCard = ({
   review,
   description,
   handleSetFav,
+  handleSetRate,
 }) => {
   const [isFavourite, setIsFavourite] = useState(false);
-
+  const [rating, setRating] = useState(false);
   // Remove author/summary from title
   const formattedTitle = title.split(':')[0];
 
@@ -33,12 +34,21 @@ const BookCard = ({
 
   const handleFavClick = e => {
     const id = e.target.closest('.favourite-icon').id;
+  
 
     // pass the opposite of isFavourite so the handler doesn't need
     // to wait for the setState to run to received the new value
     handleSetFav(id, !isFavourite);
     setIsFavourite(prev => !prev);
+    
   };
+
+  const handleRateClick = e => {
+    // const score = 
+    const id = e.target.closest('.rating-icon').id;
+    handleSetRate(id, rating);
+  }
+  
 
   return (
     <Card
@@ -88,11 +98,14 @@ const BookCard = ({
         >
           <Rating
             name={`${title} rating`}
-            value={bookRating}
+            className="rating-icon"
+            value={rating}
             precision={0.1}
             readOnly
             size="large"
             sx={{ mr: 1.5 }}
+            id={id}
+            onChange={handleRateClick}
           />
           <IconButton
             aria-label="add book to favourites"

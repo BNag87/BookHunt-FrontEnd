@@ -23,6 +23,7 @@ import {
   fetchAPIData,
   fetchFavourite,
   getUser,
+  fetchRating
 } from './utils';
 import SignUp from './pages/SignUp';
 import Account from './pages/Account';
@@ -58,6 +59,10 @@ function App() {
 
   const handleSetFav = async (id, isFav) => {
     await fetchFavourite(id, isFav, user);
+  };
+
+  const handleSetRate = async (id, score) => {
+    await fetchRating(id, score, user);
   };
 
   const handleSignUpSubmit = async e => {
@@ -206,6 +211,7 @@ function App() {
               apiData={apiData}
               isLoading={isLoading}
               handleSetFav={handleSetFav}
+              handleSetRate={handleSetRate}
             />
           </Route>
         </Switch>

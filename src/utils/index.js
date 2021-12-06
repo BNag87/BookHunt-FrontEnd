@@ -249,3 +249,25 @@ export const fetchFavourite = async (id, isFav, user) => {
     console.error('💥 💥', err);
   }
 };
+
+
+export const fetchRating = async (id, score, user) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_REST_API}review`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify({ id: id }),
+    });
+
+    if (!response.ok) throw new Error('Error updating rating');
+
+    const responseObj = await response.json();
+
+    console.log(responseObj);
+  } catch (err) {
+    console.error('💥 💥', err);
+  }
+};

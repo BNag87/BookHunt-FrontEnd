@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 //----------→ Component Imports
 import BookCard from './BookCard';
 
-const CardDeck = ({ data, handleSetFav }) => {
+const CardDeck = ({ data, handleSetFav, handleSetRating }) => {
   return (
     <Box
       sx={{
@@ -28,6 +28,7 @@ const CardDeck = ({ data, handleSetFav }) => {
             review={book.review}
             description={book.description}
             handleSetFav={handleSetFav}
+            handleSetRating={handleSetRating}
           />
         ))}
     </Box>
