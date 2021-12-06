@@ -5,7 +5,7 @@ export const Highlight = ({ text }) => (
     variant="body1"
     sx={{
       fontSize: '0.85rem',
-      bgcolor: 'primary.dark',
+      bgcolor: 'primary.light',
       color: 'primary.contrastText',
       p: 1,
       m: 0.5,
