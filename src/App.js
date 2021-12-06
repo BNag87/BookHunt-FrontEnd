@@ -27,6 +27,7 @@ import {
 } from './utils';
 import SignUp from './pages/SignUp';
 import Account from './pages/Account';
+import Collection from './pages/Collection';
 
 //----------→ App Space
 function App() {
@@ -41,6 +42,7 @@ function App() {
   const [openAlert, setOpenAlert] = useState(false);
   const [alertType, setAlertType] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
+  const [favData, setFavData] = useState(null);
 
   useEffect(() => {
     async function fetchOnLoad() {
@@ -206,12 +208,28 @@ function App() {
             />
           </Route>
 
+          <Route path="/collection">
+            <Collection
+              fav={favData}
+              setFavData={setFavData}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+              handleSetFav={handleSetFav}
+              user={user}
+              setAlertType={setAlertType}
+              setAlertMessage={setAlertMessage}
+            />
+          </Route>
           <Route path="/">
             <Homepage
               apiData={apiData}
               isLoading={isLoading}
               handleSetFav={handleSetFav}
+
               handleSetRate={handleSetRate}
+
+              user={user}
+
             />
           </Route>
         </Switch>

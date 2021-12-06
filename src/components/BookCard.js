@@ -12,7 +12,7 @@ import {
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 
 //----------→ Component Imports
-import BookDescription from './BookDescription';
+import BookDetails from './BookDetails';
 
 const BookCard = ({
   id,
@@ -20,8 +20,11 @@ const BookCard = ({
   author,
   imgUrl,
   review,
-  description,
+  publishYear,
+  numPages,
+  amazonId,
   handleSetFav,
+
   handleSetRate,
 }) => {
   const [isFavourite, setIsFavourite] = useState(false);
@@ -29,10 +32,27 @@ const BookCard = ({
   // Remove author/summary from title
   const formattedTitle = title.split(':')[0];
 
+  user,
+}) => {
+  const [isFavourite, setIsFavourite] = useState(false);
+
+
   // Get the rating as a number
-  const bookRating = +review.split(' ')[0];
+  const bookRating = +review;
+
+  // If no amazonId then return amazon search results as link
+  let amazonLink;
+  if (amazonId) amazonLink = `https://www.amazon.co.uk/dp/${amazonId}`;
+  else
+    amazonLink = encodeURI(
+      `https://www.amazon.co.uk/s/?url=search-alias%3Dstripbooks&field-keywords=${title} ${author}`
+    );
 
   const handleFavClick = e => {
+    if (!user) {
+      console.log('no user');
+      return;
+    }
     const id = e.target.closest('.favourite-icon').id;
   
 
@@ -71,7 +91,7 @@ const BookCard = ({
             component="img"
             elevation={3}
             image={imgUrl}
-            alt={`${formattedTitle} book cover`}
+            alt={`${title} book cover`}
             sx={{
               width: '200px',
               height: '300px',
@@ -79,8 +99,8 @@ const BookCard = ({
             }}
           />
         </Paper>
-        <Typography variant="h3" sx={{ mb: 2.5, mt: 3, fontSize: '1.5rem' }}>
-          {formattedTitle}
+        <Typography variant="h3" sx={{ mb: 2.5, mt: 3, height: '4.5rem' }}>
+          {title}
         </Typography>
         <Typography variant="h4" sx={{ mb: 2.5, fontSize: '1.3rem' }}>
           by {author}
@@ -101,7 +121,6 @@ const BookCard = ({
             className="rating-icon"
             value={rating}
             precision={0.1}
-            readOnly
             size="large"
             sx={{ mr: 1.5 }}
             id={id}
@@ -121,7 +140,11 @@ const BookCard = ({
             )}
           </IconButton>
         </Paper>
-        <BookDescription description={description} />
+        <BookDetails
+          publishYear={publishYear}
+          numPages={numPages}
+          amazonLink={amazonLink}
+        />
       </CardContent>
     </Card>
   );

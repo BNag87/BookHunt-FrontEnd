@@ -17,9 +17,7 @@ var navBarStyle = {
   },
   h2: {
     color: '#FFFFBF',
-    textShadow: '2px 2px 2px #cccccc',
-    fontVariant: 'small-caps',
-    fontFamily: 'Arial',
+    textShadow: '2px 2px 2px rgba(204,204,204,0.8)',
     marginBottom: '5px',
   },
 };
@@ -75,9 +73,11 @@ const Navbar = ({ user, handleLogOut }) => {
           </div>
         </Link>
 
-        <div style={customButtonStyle.div}>
-          <h3 style={customButtonStyle.h3}>Collection</h3>
-        </div>
+        <Link to="/collection">
+          <div style={customButtonStyle.div}>
+            <h3 style={customButtonStyle.h3}>Collection</h3>
+          </div>
+        </Link>
 
         <Link to="/FAQ">
           <div style={customButtonStyle.div}>
