@@ -1,5 +1,5 @@
 //import an image for bg use
-import background from '../images/pageBG2.png';
+// import background from '../images/pageBG2.png';
 
 //----------→ Component Imports
 import CardDeck from './CardDeck';
@@ -7,13 +7,14 @@ import LoadingSpinner from './LoadingSpinner';
 
 var homepageWindowStyle = {
   div: {
-    // set a background image for the div that contains the page content
-    backgroundImage: `url(${background})`,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    color: 'black',
-    margin: '5px',
-    padding: '5px',
+    // // set a background image for the div that contains the page content
+    // backgroundImage: `url(${background})`,
+    // backgroundPosition: 'center',
+    // backgroundSize: 'cover',
+    // color: 'black',
+    // margin: '5px',
+    // padding: '5px',
+    width: '100%',
   },
 
   //style all h1 elements **in this component**
@@ -22,21 +23,11 @@ var homepageWindowStyle = {
   },
 };
 
-const Homepage = ({ apiData, isLoading, handleSetFav }) => {
+const Homepage = ({ apiData, isLoading, handleSetFav, user }) => {
   return (
     <div style={homepageWindowStyle.div}>
       <LoadingSpinner isLoading={isLoading} />
-      <CardDeck data={apiData} handleSetFav={handleSetFav} />
-
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum
-      </p>
+      <CardDeck data={apiData} handleSetFav={handleSetFav} user={user} />
     </div>
   );
 };
