@@ -10,7 +10,7 @@ var navBarStyle = {
     background: 'rgba(0,100,0,0.5)',
     color: 'white',
 
-    height: '100vh',
+    // height: '100vh',
     padding: '1px',
 
     borderStyle: 'none double none none',
