@@ -224,7 +224,7 @@ export const fetchDeleteAccount = async (
 
 export const fetchAPIData = async setApiData => {
   try {
-    const url = `http://openlibrary.org/search.json`;
+    const url = `https://openlibrary.org/search.json`;
     const query = `?subject=Fiction, thrillers, general`;
     const options = `&limit=10`;
     const fields = `&fields=title,first_publish_year,author_name,number_of_pages_median,subject,cover_edition_key,id_amazon,key`;
@@ -246,7 +246,7 @@ export const fetchSearchResults = async (
   setAlertMessage
 ) => {
   try {
-    const url = `http://openlibrary.org/search.json`;
+    const url = `https://openlibrary.org/search.json`;
     const query = `?${search.type}=${search.query}`;
     const options = `&limit=10`;
     const fields = `&fields=title,first_publish_year,author_name,number_of_pages_median,subject,cover_edition_key,id_amazon,key`;
@@ -290,7 +290,7 @@ export const fetchFavouriteList = async (
 
     const favBooksObj = await Promise.all(
       userFavsObj.listFavBook.map(bookID => {
-        const url = `http://openlibrary.org/search.json`;
+        const url = `https://openlibrary.org/search.json`;
         const query = `?q=${bookID}`;
         const options = `&limit=1`;
         const fields = `&fields=title,first_publish_year,author_name,number_of_pages_median,subject,cover_edition_key,id_amazon,key`;
