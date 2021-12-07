@@ -49,7 +49,8 @@ import {
   FiChevronsLeft,
   FiInfo,
   FiLogIn,
-  FiUserPlus
+  FiUserPlus,
+  FiBookOpen
 } from "react-icons/fi";
 
 import { RiPencilLine } from "react-icons/ri";
@@ -252,11 +253,12 @@ function App() {
                     </Link>
                     </MenuItem>
 
-                      {/* 
-  Not sure what to do here. Want to be able to go to another link from the sidebar
-  Maybe try passing in props or something? 
-  Or use the sidebar to fire a function that displays the other route
-  */}
+                    <MenuItem icon={<FiBookOpen />}>
+                    <Link to="/collection">
+                          Collection
+                    </Link>
+                    </MenuItem>
+
                       <MenuItem icon={<FaList />}>
                         <Link to="/FAQ">
                           FAQ
