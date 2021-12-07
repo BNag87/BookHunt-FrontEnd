@@ -95,13 +95,13 @@ const BookCard = ({
             image={imgUrl}
             alt={`${title} book cover`}
             sx={{
-              width: '200px',
+              maxWidth: '100%',
               height: '300px',
               borderRadius: 'inherit',
             }}
           />
         </Paper>
-        <Typography variant="h3" sx={{ mb: 2.5, mt: 3, height: '4.5rem' }}>
+        <Typography variant="h3" sx={{ mb: 2.5, mt: 3, minHeight: '4.5rem' }}>
           {title}
         </Typography>
         <Typography variant="h4" sx={{ mb: 2.5, fontSize: '1.3rem' }}>
