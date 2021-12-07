@@ -20,10 +20,10 @@ const CardDeck = ({ data, handleSetFav, handleSetRating, user }) => {
       {data &&
         data.docs.map(book => {
           const id = book.key.replace('/works/', '');
-          const userFav = user.favourites.find(bookId => bookId === id);
-          const userRating = user.ratings.find(
-            rating => rating.id === id
-          )?.score;
+          let userFav, userRating;
+          if (user) userFav = user.favourites.find(bookId => bookId === id);
+          if (user)
+            userRating = user.ratings.find(rating => rating.id === id)?.score;
           return (
             <BookCard
               key={id}
