@@ -53,7 +53,6 @@ import {
   FiBookOpen
 } from "react-icons/fi";
 
-import { RiPencilLine } from "react-icons/ri";
 import { BiCog } from "react-icons/bi";
 import { IconContext } from "react-icons";
 
