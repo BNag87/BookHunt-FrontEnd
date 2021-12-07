@@ -1,28 +1,25 @@
-body{
-    background-image: url("./images/bookshelf.png");
-    margin: 0;
-    padding: 0;
+body {
+  background-image: url('./images/bookshelf.png');
+  margin: 0;
+  padding: 0;
 }
 
-
-h1{
-    color: yellow;
+h1 {
+  color: yellow;
 }
 
-.Navbar{
-    color: white
+.Navbar {
+  color: white;
 }
 
-.row2{
-    display:flex; 
-    flex-direction:row;
-
+.row2 {
+  display: flex;
+  flex-direction: row;
+  min-height: 84vh;
 }
 
 .wrapper {
-    flex-direction:column;
-    max-width: 900px;
-    margin: auto;
-
-
+  flex-direction: column;
+  max-width: 900px;
+  margin: auto;
 }
