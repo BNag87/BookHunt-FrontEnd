@@ -30,7 +30,7 @@ const SearchForm = ({ handleSearchBooks }) => {
             required={true}
             value={searchType}
             onChange={e => setSearchType(e.target.value)}
-            sx={{ width: '35%', bgcolor: 'white' }}
+            sx={{ minWidth: '30%', bgcolor: 'white' }}
           >
             {options.map((option, i) => (
               <MenuItem key={i} value={option.value}>
