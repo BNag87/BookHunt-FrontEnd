@@ -8,9 +8,9 @@ import { createTheme, ThemeProvider } from '@mui/material';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#b5dfca',
-      dark: '#579069',
-      light: '#c5e7e2'
+      main: 'rgba(181, 225, 190,1)',
+      dark: 'rgba(87,144,105,1)',
+      light: 'rgba(197, 231, 226,1)',
     },
   },
   typography: {

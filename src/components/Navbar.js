@@ -7,7 +7,7 @@ var navBarStyle = {
     alignItems: 'center',
 
     textAlign: 'center',
-    background: 'rgba(0,100,0,0.5)',
+    background: 'rgba(181, 225, 190,0.8)',
     color: 'white',
 
     height: '100vh',

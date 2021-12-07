@@ -1,6 +1,7 @@
 var topNavBarStyle = {
   div: {
-    background: 'linear-gradient(to top, rgba(0,100,0,0.5), rgba(0,150,0,1))',
+    background:
+      'linear-gradient(to bottom, rgba(87,144,105,1), rgba(181, 225, 190,0.8))',
     color: 'white',
     width: '100vw',
     height: '10%',
@@ -8,9 +9,10 @@ var topNavBarStyle = {
     textAlign: 'center',
   },
   h1: {
-    color: '#FFFFBF',
-    textShadow: '2px 2px 2px rgba(204,204,204,0.8)',
-    fontSize: '4rem',
+    color: 'rgb(190, 152, 110)',
+    webkitTextStroke: '1px rgba(0,0,0,0.7)',
+    textShadow: 'rgb(150 150 150 / 60%) 2px 2px 5px',
+    fontSize: '4.3rem',
     margin: '0.75rem',
     fontWeight: '300',
   },
