@@ -27,6 +27,8 @@ export const getUser = async (setUser, setStayLoggedIn) => {
         username: fetchedUser.user.username,
         email: fetchedUser.user.email,
         token: fetchedUser.token,
+        favourites: fetchedUser.user.favorites,
+        ratings: fetchedUser.user.rating,
       });
 
       // Set stayLoggedIn to true because if savedUser exists they must have checked the box on login/signup.
@@ -70,13 +72,12 @@ export const fetchSignUp = async (
     });
 
     if (!response.ok) {
-      setAlertType("error")
-      setAlertMessage('Error signing up')
-      throw new Error('Error signing up');}
-  
+      throw new Error('Error signing up');
+    }
+
     const responseObj = await response.json();
-    setAlertType("success")
-    setAlertMessage("Sign up successful, you are now logged in");
+    setAlertType('success');
+    setAlertMessage('Sign up successful, you are now logged in');
 
     const {
       newUser: { username: newUsername, email: newEmail },
@@ -95,12 +96,20 @@ export const fetchSignUp = async (
         })
       );
   } catch (err) {
+    setAlertType('error');
+    setAlertMessage(err.message);
     console.error('💥 💥', err);
   }
 };
 
-export const fetchLogIn = async (email, password, setUser, stayLoggedIn, setAlertType,
-  setAlertMessage) => {
+export const fetchLogIn = async (
+  email,
+  password,
+  setUser,
+  stayLoggedIn,
+  setAlertType,
+  setAlertMessage
+) => {
   try {
     const response = await fetch(`${process.env.REACT_APP_REST_API}login`, {
       method: 'POST',
@@ -114,14 +123,12 @@ export const fetchLogIn = async (email, password, setUser, stayLoggedIn, setAler
     });
 
     if (!response.ok) {
-      setAlertType("error")
-      setAlertMessage('Error logging in')
-      throw new Error('Error logging in');}
-  
+      throw new Error('Error logging in');
+    }
+
     const responseObj = await response.json();
-    setAlertType("success")
-    setAlertMessage("Log in successful");
-  
+    setAlertType('success');
+    setAlertMessage('Log in successful');
 
     const {
       user: { username, email: userEmail },
@@ -141,6 +148,8 @@ export const fetchLogIn = async (email, password, setUser, stayLoggedIn, setAler
       );
   } catch (err) {
     console.error('💥 💥', err);
+    setAlertType('error');
+    setAlertMessage(err.message);
   }
 };
 
@@ -167,61 +176,137 @@ export const fetchUpdateUser = async (
     });
 
     if (!response.ok) {
-      setAlertType("error")
-      setAlertMessage('Error updating account')
-      throw new Error('Error updating account');}
-  
+      throw new Error('Error updating account');
+    }
+
     const responseObj = await response.json();
-   
 
     const password = updateObj.newInfo.password || currentPass;
 
     await fetchLogIn(responseObj.doc.email, password, setUser, stayLoggedIn);
-    setAlertType("success")
+    setAlertType('success');
     setAlertMessage(responseObj.message);
+  } catch (err) {
+    console.error('💥 💥', err);
+    setAlertType('error');
+    setAlertMessage(err.message);
+  }
+};
+
+export const fetchDeleteAccount = async (
+  user,
+  setAlertType,
+  setAlertMessage
+) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_REST_API}user`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify({ username: user.username }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Error deleting account');
+    }
+
+    const responseObj = await response.json();
+    setAlertType('success');
+    setAlertMessage(responseObj.message);
+  } catch (err) {
+    console.error('💥 💥', err);
+    setAlertType('error');
+    setAlertMessage(err.message);
+  }
+};
+
+export const fetchAPIData = async setApiData => {
+  try {
+    const url = `http://openlibrary.org/search.json`;
+    const query = `?subject=Fiction, thrillers, general`;
+    const options = `&limit=10`;
+    const fields = `&fields=title,first_publish_year,author_name,number_of_pages_median,subject,cover_edition_key,id_amazon,key`;
+
+    const bookData = await fetchBookData(url, query, options, fields);
+
+    if (!bookData) throw new Error('Error while fetching data');
+
+    setApiData(bookData);
   } catch (err) {
     console.error('💥 💥', err);
   }
 };
 
-export const fetchDeleteAccount = async (user, setAlertType,
-  setAlertMessage) => {
-  const response = await fetch(`${process.env.REACT_APP_REST_API}user`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${user.token}`,
-    },
-    body: JSON.stringify({ username: user.username }),
-  });
-
-  if (!response.ok) {
-    setAlertType("error")
-    setAlertMessage('Error deleting account')
-    throw new Error('Error deleting account');}
-
-  const responseObj = await response.json();
-  setAlertType("success")
-  setAlertMessage(responseObj.message);
-};
-
-export const fetchAPIData = async setApiData => {
+export const fetchSearchResults = async (
+  search,
+  setApiData,
+  setAlertType,
+  setAlertMessage
+) => {
   try {
-    const response = await fetch('https://bookshelves.p.rapidapi.com/books', {
-      method: 'GET',
-      headers: {
-        'x-rapidapi-host': 'bookshelves.p.rapidapi.com',
-        'x-rapidapi-key': process.env.REACT_APP_API_KEY,
-      },
-    });
+    const url = `http://openlibrary.org/search.json`;
+    const query = `?${search.type}=${search.query}`;
+    const options = `&limit=10`;
+    const fields = `&fields=title,first_publish_year,author_name,number_of_pages_median,subject,cover_edition_key,id_amazon,key`;
 
-    if (!response.ok) throw new Error('Error fetching book data');
+    const bookData = await fetchBookData(url, query, options, fields);
 
-    const responseObj = await response.json();
-    const bookData = responseObj.Books;
+    if (!bookData)
+      throw new Error('We could not find any results that matched your query');
+
     setApiData(bookData);
   } catch (err) {
     console.error('💥 💥', err);
+    setAlertType('error');
+    setAlertMessage(err.message);
+  }
+};
+
+export const fetchFavouriteList = async (
+  user,
+  setAlertType,
+  setAlertMessage,
+  setFavData
+) => {
+  try {
+    const userFavsResponse = await fetch(
+      `${process.env.REACT_APP_REST_API}profile`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+
+    if (!userFavsResponse.ok) {
+      throw new Error('Error fetching user favourites');
+    }
+
+    const userFavsObj = await userFavsResponse.json();
+
+    const favBooksObj = await Promise.all(
+      userFavsObj.listFavBook.map(bookID => {
+        const url = `http://openlibrary.org/search.json`;
+        const query = `?q=${bookID}`;
+        const options = `&limit=1`;
+        const fields = `&fields=title,first_publish_year,author_name,number_of_pages_median,subject,cover_edition_key,id_amazon,key`;
+
+        return fetchBookData(url, query, options, fields);
+      })
+    );
+
+    let favBooks = {};
+    favBooks.docs = favBooksObj.map(el => el.docs[0]);
+
+    setFavData(favBooks);
+  } catch (err) {
+    console.error('💥 💥', err);
+    setAlertType('error');
+    setAlertMessage(err.message);
   }
 };
 
@@ -231,7 +316,7 @@ export const fetchFavourite = async (id, isFav, user) => {
     if (isFav) route = 'favourite';
     else route = 'unfavourite';
 
-    const response = await fetch(`http://localhost:5000/${route}`, {
+    const response = await fetch(`${process.env.REACT_APP_REST_API}${route}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -245,6 +330,42 @@ export const fetchFavourite = async (id, isFav, user) => {
     const responseObj = await response.json();
 
     console.log(responseObj);
+  } catch (err) {
+    console.error('💥 💥', err);
+  }
+};
+
+export const fetchRating = async (rating, user) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_REST_API}review`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify(rating),
+    });
+
+    if (!response.ok) throw new Error('Error updating rating');
+
+    const responseObj = await response.json();
+
+    console.log(responseObj);
+  } catch (err) {
+    console.error('💥 💥', err);
+  }
+};
+
+const fetchBookData = async (url, query, options, fields) => {
+  try {
+    // When passing arguments, ensure query starts with ?= then options and fields start with &=
+    const response = await fetch(
+      encodeURI(`${url}${query}${options}${fields}`)
+    );
+
+    if (!response.ok) throw new Error('Error fetching book data');
+
+    return await response.json();
   } catch (err) {
     console.error('💥 💥', err);
   }

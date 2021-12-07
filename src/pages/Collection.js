@@ -1,13 +1,10 @@
-//import an image for bg use
-// import background from '../images/pageBG2.png';
-
 //----------→ Component Imports
-import { useEffect } from 'react';
-import CardDeck from './CardDeck';
-import LoadingSpinner from './LoadingSpinner';
-import SearchForm from './SearchForm';
+import { useEffect, useState } from 'react';
+import CardDeck from '../components/CardDeck';
+import LoadingSpinner from '../components/LoadingSpinner';
+import { fetchFavouriteList } from '../utils';
 
-var homepageWindowStyle = {
+var collectionWindowStyle = {
   div: {
     // // set a background image for the div that contains the page content
     // backgroundImage: `url(${background})`,
@@ -25,36 +22,35 @@ var homepageWindowStyle = {
   },
 };
 
-const Homepage = ({
-  apiData,
+const Collection = ({
   isLoading,
+  setIsLoading,
   handleSetFav,
   user,
   handleSetRating,
-  setIsLoading,
+  setAlertType,
+  setAlertMessage,
   getUser,
   setUser,
   setStayLoggedIn,
-  handleSearchBooks,
 }) => {
+  const [favData, setFavData] = useState(null);
   useEffect(() => {
     async function fetchOnLoad() {
       setIsLoading(true);
       await getUser(setUser, setStayLoggedIn);
-
+      await fetchFavouriteList(user, setAlertType, setAlertMessage, setFavData);
       setIsLoading(false);
     }
 
     return fetchOnLoad();
     //eslint-disable-next-line
   }, []);
-
   return (
-    <div style={homepageWindowStyle.div}>
+    <div style={collectionWindowStyle.div}>
       <LoadingSpinner isLoading={isLoading} />
-      <SearchForm handleSearchBooks={handleSearchBooks} />
       <CardDeck
-        data={apiData}
+        data={favData}
         handleSetFav={handleSetFav}
         handleSetRating={handleSetRating}
         user={user}
@@ -63,4 +59,4 @@ const Homepage = ({
   );
 };
 
-export default Homepage;
+export default Collection;

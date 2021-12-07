@@ -23,9 +23,12 @@ import {
   fetchAPIData,
   fetchFavourite,
   getUser,
+  fetchRating,
+  fetchSearchResults,
 } from './utils';
 import SignUp from './pages/SignUp';
 import Account from './pages/Account';
+import Collection from './pages/Collection';
 
 //----------→ App Space
 function App() {
@@ -58,6 +61,28 @@ function App() {
 
   const handleSetFav = async (id, isFav) => {
     await fetchFavourite(id, isFav, user);
+  };
+
+  const handleSetRating = async rating => {
+    await fetchRating(rating, user);
+  };
+
+  const handleSearchBooks = async search => {
+    setIsLoading(true);
+
+    try {
+      await fetchSearchResults(
+        search,
+        setApiData,
+        setAlertType,
+        setAlertMessage
+      );
+    } catch (err) {
+      console.error('💥 💥', err);
+      handleAlert();
+    }
+
+    setIsLoading(false);
   };
 
   const handleSignUpSubmit = async e => {
@@ -201,11 +226,31 @@ function App() {
             />
           </Route>
 
+          <Route path="/collection">
+            <Collection
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+              handleSetFav={handleSetFav}
+              user={user}
+              setAlertType={setAlertType}
+              setAlertMessage={setAlertMessage}
+              getUser={getUser}
+              setUser={setUser}
+              setStayLoggedIn={setStayLoggedIn}
+            />
+          </Route>
           <Route path="/">
             <Homepage
               apiData={apiData}
               isLoading={isLoading}
               handleSetFav={handleSetFav}
+              handleSetRating={handleSetRating}
+              user={user}
+              setIsLoading={setIsLoading}
+              getUser={getUser}
+              setUser={setUser}
+              setStayLoggedIn={setStayLoggedIn}
+              handleSearchBooks={handleSearchBooks}
             />
           </Route>
         </Switch>

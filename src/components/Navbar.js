@@ -17,9 +17,7 @@ var navBarStyle = {
   },
   h2: {
     color: '#FFFFBF',
-    textShadow: '2px 2px 2px #cccccc',
-    fontVariant: 'small-caps',
-    fontFamily: 'Arial',
+    textShadow: '2px 2px 2px rgba(204,204,204,0.8)',
     marginBottom: '5px',
   },
 };
@@ -31,7 +29,7 @@ var containerStyle = {
     background: '#579069',
     borderRadius: '5px',
     // border: 'outset #FFFFAE 1px',
-    border: 'outset #42635b 1px' ,
+    border: 'outset #42635b 1px',
     padding: '10px',
     margin: '5px',
   },
@@ -75,9 +73,11 @@ const Navbar = ({ user, handleLogOut }) => {
           </div>
         </Link>
 
-        <div style={customButtonStyle.div}>
-          <h3 style={customButtonStyle.h3}>Collection</h3>
-        </div>
+        <Link to="/collection">
+          <div style={customButtonStyle.div}>
+            <h3 style={customButtonStyle.h3}>Collection</h3>
+          </div>
+        </Link>
 
         <Link to="/FAQ">
           <div style={customButtonStyle.div}>
@@ -90,11 +90,6 @@ const Navbar = ({ user, handleLogOut }) => {
             <h3 style={customButtonStyle.h3}>About Us</h3>
           </div>
         </Link>
-      </div>
-
-      <h2 style={navBarStyle.h2}>Search</h2>
-      <div style={containerStyle.div}>
-        <input type="text" placeholder="The Northern Lights"></input>
       </div>
 
       <h2 style={navBarStyle.h2}>Account</h2>

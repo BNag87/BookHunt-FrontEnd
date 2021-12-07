@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 //----------→ Component Imports
 import BookCard from './BookCard';
 
-const CardDeck = ({ data, handleSetFav }) => {
+const CardDeck = ({ data, handleSetFav, handleSetRating, user }) => {
   return (
     <Box
       sx={{
@@ -18,18 +18,30 @@ const CardDeck = ({ data, handleSetFav }) => {
       }}
     >
       {data &&
-        data.map(book => (
-          <BookCard
-            key={book.id}
-            id={book.id}
-            title={book.title}
-            author={book.author}
-            imgUrl={book.imgUrl}
-            review={book.review}
-            description={book.description}
-            handleSetFav={handleSetFav}
-          />
-        ))}
+        data.docs.map(book => {
+          const id = book.key.replace('/works/', '');
+          let userFav, userRating;
+          if (user) userFav = user.favourites.find(bookId => bookId === id);
+          if (user)
+            userRating = user.ratings.find(rating => rating.id === id)?.score;
+          return (
+            <BookCard
+              key={id}
+              id={id}
+              title={book.title}
+              author={book.author_name[0]}
+              imgUrl={`https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-M.jpg`}
+              publishYear={book.first_publish_year}
+              numPages={book.number_of_pages_median}
+              amazonId={book.id_amazon?.[0]}
+              handleSetFav={handleSetFav}
+              handleSetRating={handleSetRating}
+              user={user}
+              userFav={userFav}
+              userRating={userRating}
+            />
+          );
+        })}
     </Box>
   );
 };

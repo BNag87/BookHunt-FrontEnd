@@ -16,18 +16,19 @@ const theme = createTheme({
   typography: {
     fontFamily: "'Montserrat', sans-serif",
     h1: {
-      fontFamily: "'Rufina', serif",
+      fontFamily: "'Spectral SC', serif",
       fontSize: '4rem',
       fontVariant: 'small-caps',
     },
     h2: {
-      fontFamily: "'Rufina', serif",
+      fontFamily: "'Spectral SC', serif",
       fontSize: '3rem',
       fontVariant: 'small-caps',
     },
     h3: {
-      fontFamily: "'Rufina', serif",
-      fontSize: '1.5rem',
+      fontFamily: "'Spectral SC', serif",
+      fontSize: '2rem',
+      textAlign: 'center',
       fontVariant: 'small-caps',
     },
   },

@@ -1,5 +1,5 @@
 //----------→ Framework Imports
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Card,
   CardContent,
@@ -12,32 +12,64 @@ import {
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 
 //----------→ Component Imports
-import BookDescription from './BookDescription';
+import BookDetails from './BookDetails';
 
 const BookCard = ({
   id,
   title,
   author,
   imgUrl,
-  review,
-  description,
+  publishYear,
+  numPages,
+  amazonId,
   handleSetFav,
+  user,
+  handleSetRating,
+  userFav,
+  userRating,
 }) => {
   const [isFavourite, setIsFavourite] = useState(false);
+  const [rating, setRating] = useState(2.5);
 
-  // Remove author/summary from title
-  const formattedTitle = title.split(':')[0];
+  useEffect(() => {
+    if (userFav) setIsFavourite(true);
+    if (userRating) setRating(userRating);
+  }, [userFav, userRating]);
 
-  // Get the rating as a number
-  const bookRating = +review.split(' ')[0];
+  // If no amazonId then return amazon search results as link
+  let amazonLink;
+  if (amazonId) amazonLink = `https://www.amazon.co.uk/dp/${amazonId}`;
+  else
+    amazonLink = encodeURI(
+      `https://www.amazon.co.uk/s/?url=search-alias%3Dstripbooks&field-keywords=${title} ${author}`
+    );
 
-  const handleFavClick = e => {
+  // // Look through favourites and set values for any previously favourited books
+  // if (favData)
+  //   favData.forEach(favourite => favourite === id && setIsFavourite(true));
+
+  // // Look through ratings and set values for any previously rated books
+  // if (ratingData)
+  //   ratingData.forEach(rating => rating.id === id && setRating(rating.score));
+
+  const handleFavClick = async e => {
+    if (!user) return;
+
     const id = e.target.closest('.favourite-icon').id;
 
     // pass the opposite of isFavourite so the handler doesn't need
     // to wait for the setState to run to received the new value
-    handleSetFav(id, !isFavourite);
+    await handleSetFav(id, !isFavourite);
     setIsFavourite(prev => !prev);
+  };
+
+  const handleRateClick = async e => {
+    if (!user) return;
+
+    const score = +e.target.value;
+    const id = e.target.closest('.rating-icon').id;
+    await handleSetRating({ id, score });
+    setRating(score);
   };
 
   return (
@@ -61,7 +93,7 @@ const BookCard = ({
             component="img"
             elevation={3}
             image={imgUrl}
-            alt={`${formattedTitle} book cover`}
+            alt={`${title} book cover`}
             sx={{
               width: '200px',
               height: '300px',
@@ -69,8 +101,8 @@ const BookCard = ({
             }}
           />
         </Paper>
-        <Typography variant="h3" sx={{ mb: 2.5, mt: 3, fontSize: '1.5rem' }}>
-          {formattedTitle}
+        <Typography variant="h3" sx={{ mb: 2.5, mt: 3, height: '4.5rem' }}>
+          {title}
         </Typography>
         <Typography variant="h4" sx={{ mb: 2.5, fontSize: '1.3rem' }}>
           by {author}
@@ -88,11 +120,13 @@ const BookCard = ({
         >
           <Rating
             name={`${title} rating`}
-            value={bookRating}
-            precision={0.1}
-            readOnly
+            className="rating-icon"
+            value={rating}
+            precision={0.5}
             size="large"
             sx={{ mr: 1.5 }}
+            id={id}
+            onChange={handleRateClick}
           />
           <IconButton
             aria-label="add book to favourites"
@@ -108,7 +142,11 @@ const BookCard = ({
             )}
           </IconButton>
         </Paper>
-        <BookDescription description={description} />
+        <BookDetails
+          publishYear={publishYear}
+          numPages={numPages}
+          amazonLink={amazonLink}
+        />
       </CardContent>
     </Card>
   );
