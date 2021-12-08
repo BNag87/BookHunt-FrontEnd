@@ -370,6 +370,7 @@ function App() {
               getUser={getUser}
               setUser={setUser}
               setStayLoggedIn={setStayLoggedIn}
+              handleSetRating={handleSetRating}
             />
           </Route>
           <Route path="/">
