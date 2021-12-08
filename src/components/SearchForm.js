@@ -1,23 +1,25 @@
 import { Button, Container, MenuItem, TextField } from '@mui/material';
 import { Box } from '@mui/system';
-import { useState } from 'react';
 
-const SearchForm = ({ handleSearchBooks }) => {
-  const [query, setQuery] = useState('');
-  const [searchType, setSearchType] = useState('');
-
+const SearchForm = ({
+  handleSearchBooks,
+  searchType,
+  setSearchType,
+  query,
+  setQuery,
+  setCurrentPage,
+}) => {
   const options = [
     { value: 'title', label: 'Title' },
     { value: 'author', label: 'Author' },
     { value: 'subject', label: 'Subject' },
   ];
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     if (!searchType || !query) return;
     e.preventDefault();
-    handleSearchBooks({ type: searchType, query: query });
-    setQuery('');
-    setSearchType('');
+    setCurrentPage(1);
+    await handleSearchBooks({ type: searchType, query: query }, 1);
   };
   return (
     <Container maxWidth="sm" sx={{ mt: 4 }}>

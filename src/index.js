@@ -12,6 +12,9 @@ const theme = createTheme({
       dark: 'rgba(87,144,105,1)',
       light: 'rgba(197, 231, 226,1)',
     },
+    secondary: {
+      main: 'rgb(190, 152, 110)',
+    },
   },
   typography: {
     fontFamily: "'Montserrat', sans-serif",

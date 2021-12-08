@@ -2,20 +2,15 @@
 // import background from '../images/pageBG2.png';
 
 //----------→ Component Imports
-import { useEffect } from 'react';
+import { Pagination } from '@mui/material';
+import { Box } from '@mui/system';
+import { useEffect, useState } from 'react';
 import CardDeck from './CardDeck';
 import LoadingSpinner from './LoadingSpinner';
 import SearchForm from './SearchForm';
 
 var homepageWindowStyle = {
   div: {
-    // // set a background image for the div that contains the page content
-    // backgroundImage: `url(${background})`,
-    // backgroundPosition: 'center',
-    // backgroundSize: 'cover',
-    // color: 'black',
-    // margin: '5px',
-    // padding: '5px',
     width: '100%',
   },
 
@@ -36,7 +31,13 @@ const Homepage = ({
   setUser,
   setStayLoggedIn,
   handleSearchBooks,
+
+  numPages,
 }) => {
+  const [query, setQuery] = useState('');
+  const [searchType, setSearchType] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
     async function fetchOnLoad() {
       setIsLoading(true);
@@ -49,10 +50,42 @@ const Homepage = ({
     //eslint-disable-next-line
   }, []);
 
+  const handleChangePage = async (e, value) => {
+    if (!searchType || !query)
+      await handleSearchBooks(
+        {
+          type: 'subject',
+          query: 'Fiction, thrillers, general',
+        },
+        value
+      );
+    else await handleSearchBooks({ type: searchType, query: query }, value);
+    setCurrentPage(value);
+  };
+
   return (
     <div style={homepageWindowStyle.div}>
       <LoadingSpinner isLoading={isLoading} />
-      <SearchForm handleSearchBooks={handleSearchBooks} />
+      <SearchForm
+        query={query}
+        setQuery={setQuery}
+        searchType={searchType}
+        setSearchType={setSearchType}
+        handleSearchBooks={handleSearchBooks}
+        setCurrentPage={setCurrentPage}
+      />
+      <Box sx={{ display: 'flex', justifyContent: 'center', pt: 4, pb: 1 }}>
+        <Pagination
+          count={numPages}
+          page={currentPage}
+          onChange={handleChangePage}
+          color="secondary"
+          showFirstButton
+          showLastButton
+          siblingCount={1}
+          size="large"
+        />
+      </Box>
       <CardDeck
         data={apiData}
         handleSetFav={handleSetFav}

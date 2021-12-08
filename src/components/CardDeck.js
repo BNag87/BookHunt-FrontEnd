@@ -22,8 +22,9 @@ const CardDeck = ({ data, handleSetFav, handleSetRating, user }) => {
           const id = book.key.replace('/works/', '');
           let userFav, userRating;
 
-          if(user){
-            if (user.favourites && user.favourites.length >= 1) userFav = user.favourites.find(bookId => bookId === id);
+          if (user) {
+            if (user.favourites && user.favourites.length >= 1)
+              userFav = user.favourites.find(bookId => bookId === id);
             if (user.ratings && user.ratings.length >= 1)
               userRating = user.ratings.find(rating => rating.id === id)?.score;
           }
@@ -33,7 +34,7 @@ const CardDeck = ({ data, handleSetFav, handleSetRating, user }) => {
               key={id}
               id={id}
               title={book.title}
-              author={book.author_name[0]}
+              author={book.author_name?.[0]}
               imgUrl={`https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-M.jpg`}
               publishYear={book.first_publish_year}
               numPages={book.number_of_pages_median}
