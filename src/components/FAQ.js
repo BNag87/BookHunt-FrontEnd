@@ -49,7 +49,7 @@ const Faq = () => {
 
         <div style={textBoxStyle.div}>
           <h3 style={textBoxStyle.h3}>
-            I have a shelf that is sagging. How to I fix it?
+            I have a shelf that is sagging. How do I fix it?
           </h3>
           <p>
             Remove any screws and wall plugs. Fill the old holes with polyfila.
@@ -60,7 +60,7 @@ const Faq = () => {
 
         <div style={textBoxStyle.div}>
           <h3 style={textBoxStyle.h3}>
-            When I buy a bag of coffee, how will I know if I will like it?
+            When I buy a bag of coffee, how will I know if I'll like it?
           </h3>
           <p>
             On most bags of coffee beans, there's a plastic tab on the front

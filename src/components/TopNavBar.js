@@ -9,7 +9,7 @@ var topNavBarStyle = {
   },
   h1: {
     color: 'rgb(190, 152, 110)',
-    webkitTextStroke: '1px rgba(0,0,0,0.7)',
+    WebkitTextStroke: '1px rgba(0,0,0,0.7)',
     textShadow: 'rgb(150 150 150 / 60%) 2px 2px 5px',
     fontSize: '4.3rem',
     margin: '0.75rem',
