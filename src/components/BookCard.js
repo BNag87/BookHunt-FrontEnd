@@ -44,14 +44,6 @@ const BookCard = ({
       `https://www.amazon.co.uk/s/?url=search-alias%3Dstripbooks&field-keywords=${title} ${author}`
     );
 
-  // // Look through favourites and set values for any previously favourited books
-  // if (favData)
-  //   favData.forEach(favourite => favourite === id && setIsFavourite(true));
-
-  // // Look through ratings and set values for any previously rated books
-  // if (ratingData)
-  //   ratingData.forEach(rating => rating.id === id && setRating(rating.score));
-
   const handleFavClick = async e => {
     if (!user) return;
 

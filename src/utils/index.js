@@ -183,7 +183,14 @@ export const fetchUpdateUser = async (
 
     const password = updateObj.newInfo.password || currentPass;
 
-    await fetchLogIn(responseObj.doc.email, password, setUser, stayLoggedIn);
+    await fetchLogIn(
+      responseObj.doc.email,
+      password,
+      setUser,
+      stayLoggedIn,
+      setAlertType,
+      setAlertMessage
+    );
     setAlertType('success');
     setAlertMessage(responseObj.message);
   } catch (err) {
