@@ -201,7 +201,7 @@ function App() {
   // Function to invert a boolean thats used to hide/show the whole navbar
   var toggleNav = () => {
     setToggleBar(prev => !prev);
-    console.log('Toggle bar was set to:', ToggleBar);
+    // console.log('Toggle bar was set to:', ToggleBar);
   };
   //==================RENDER STUFF HERE====================== */}
   return (

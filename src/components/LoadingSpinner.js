@@ -4,9 +4,9 @@ const LoadingSpinner = ({ isLoading }) => {
   return (
     <Box
       sx={{
-        display: isLoading ? 'flex' : 'none',
+        visibility: isLoading ? 'visible' : 'hidden',
+        display: 'flex',
         justifyContent: 'center',
-        width: '100%',
         padding: 1,
       }}
     >
