@@ -229,36 +229,23 @@ export const fetchDeleteAccount = async (
   }
 };
 
-export const fetchAPIData = async setApiData => {
-  try {
-    const url = `https://openlibrary.org/search.json`;
-    const query = `?subject=Fiction, thrillers, general`;
-    const options = `&limit=10`;
-    const fields = `&fields=title,first_publish_year,author_name,number_of_pages_median,subject,cover_edition_key,id_amazon,key`;
-
-    const bookData = await fetchBookData(url, query, options, fields);
-
-    if (!bookData) throw new Error('Error while fetching data');
-
-    setApiData(bookData);
-  } catch (err) {
-    console.error('💥 💥', err);
-  }
-};
-
 export const fetchSearchResults = async (
   search,
   setApiData,
   setAlertType,
-  setAlertMessage
+  setAlertMessage,
+  setNumPages,
+  currentPage
 ) => {
   try {
     const url = `https://openlibrary.org/search.json`;
     const query = `?${search.type}=${search.query}`;
-    const options = `&limit=10`;
+    const options = `&limit=12&offset=${(currentPage - 1) * 12}`;
     const fields = `&fields=title,first_publish_year,author_name,number_of_pages_median,subject,cover_edition_key,id_amazon,key`;
 
     const bookData = await fetchBookData(url, query, options, fields);
+
+    setNumPages(Math.ceil(bookData.numFound / 12));
 
     if (!bookData)
       throw new Error('We could not find any results that matched your query');
@@ -365,7 +352,8 @@ export const fetchRating = async (rating, user) => {
 
 const fetchBookData = async (url, query, options, fields) => {
   try {
-    // When passing arguments, ensure query starts with ?= then options and fields start with &=
+    // When passing arguments, ensure query starts with ?=
+    // then options and fields start with &=
     const response = await fetch(
       encodeURI(`${url}${query}${options}${fields}`)
     );

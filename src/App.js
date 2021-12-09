@@ -20,7 +20,6 @@ import {
   fetchLogIn,
   fetchUpdateUser,
   fetchDeleteAccount,
-  fetchAPIData,
   fetchFavourite,
   getUser,
   fetchRating,
@@ -68,16 +67,25 @@ function App() {
   const [openAlert, setOpenAlert] = useState(false);
   const [alertType, setAlertType] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
+  const [numPages, setNumPages] = useState(0);
 
   useEffect(() => {
     async function fetchOnLoad() {
       setIsLoading(true);
       await getUser(setUser, setStayLoggedIn);
-      await fetchAPIData(setApiData);
+      await fetchSearchResults(
+        { type: 'subject', query: 'Fiction, thrillers, general' },
+        setApiData,
+        setAlertType,
+        setAlertMessage,
+        setNumPages,
+        1
+      );
       setIsLoading(false);
     }
 
     return fetchOnLoad();
+    // eslint-disable-next-line
   }, []);
 
   const handleAlert = () => {
@@ -92,21 +100,21 @@ function App() {
     await fetchRating(rating, user);
   };
 
-  const handleSearchBooks = async search => {
+  const handleSearchBooks = async (search, page = 1) => {
     setIsLoading(true);
-
     try {
       await fetchSearchResults(
         search,
         setApiData,
         setAlertType,
-        setAlertMessage
+        setAlertMessage,
+        setNumPages,
+        page
       );
     } catch (err) {
       console.error('💥 💥', err);
       handleAlert();
     }
-
     setIsLoading(false);
   };
 
@@ -193,7 +201,7 @@ function App() {
   // Function to invert a boolean thats used to hide/show the whole navbar
   var toggleNav = () => {
     setToggleBar(prev => !prev);
-    console.log('Toggle bar was set to:', ToggleBar);
+    // console.log('Toggle bar was set to:', ToggleBar);
   };
   //==================RENDER STUFF HERE====================== */}
   return (
@@ -385,6 +393,7 @@ function App() {
               setUser={setUser}
               setStayLoggedIn={setStayLoggedIn}
               handleSearchBooks={handleSearchBooks}
+              numPages={numPages}
             />
           </Route>
         </Switch>
